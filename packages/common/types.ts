@@ -2,16 +2,16 @@ import { z } from "zod";
 
 export const TrainModel = z.object({
   name: z.string(),
-  gender: z.enum(["Man", "Woman", "Other"]),
+  gender: z.enum(["Man", "Woman", "Others"]),
   age: z.number(),
   ethinicity: z.enum([
     "White",
     "Black",
-    "Asian American",
-    "East Asian",
-    " South East Asian",
-    "South Asian",
-    "Middle Eastern",
+    "AsianAmerican",
+    "EastAsian",
+    "SouthEastAsian",
+    "SouthAsian",
+    "MiddleEastern",
     "Pacific",
     "Hispanic",
   ]),
@@ -22,7 +22,7 @@ export const TrainModel = z.object({
 
 export const GenerateImage = z.object({
   prompt: z.string(),
-  modelId: z.string(),
+  trainModelId: z.string(),
   num: z.number(),
 });
 
