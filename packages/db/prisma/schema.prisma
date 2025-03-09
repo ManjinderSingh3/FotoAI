@@ -14,55 +14,56 @@ datasource db {
 }
 
 model User {
-  id  String  @id   @default(uuid())
-  username  String 
+  id              String      @id                @default(uuid())
+  username        String 
   profilePicture  String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
 }
 
 model TrainModel {
-  id  String  @id   @default(uuid())
-  name  String
-  gender GenderEnum
-  age Int
-  ethinicity EthinicityEnum
-  eyeColor EyeColorEnum
-  bald Boolean
+  id              String              @id                @default(uuid())
+  userId          String
+  name            String
+  gender          GenderEnum
+  age             Int
+  ethinicity      EthinicityEnum
+  eyeColor        EyeColorEnum
+  bald            Boolean
   trainingImgaes  TrainingImages[]
-  outputImages OutputImages[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  outputImages    OutputImages[]
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
 }
 
 model TrainingImages {
-  id String @id @default(uuid())
-  imageUrl String
-  trainModelId  String
-  trainModel  TrainModel  @relation(fields: [trainModelId], references: [id])
+  id              String              @id               @default(uuid())
+  imageUrl        String
+  trainModelId    String
+  trainModel      TrainModel          @relation(fields: [trainModelId], references: [id])
 }
 
 model OutputImages {
-  id  String  @id   @default(uuid())
-  userId String
-  imageUrl  String
-  trainModelId  String
-  trainModel TrainModel @relation(fields: [trainModelId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id              String              @id                @default(uuid())
+  userId          String
+  imageUrl        String
+  trainModelId    String
+  trainModel      TrainModel          @relation(fields: [trainModelId], references: [id])
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
 }
 
 model Packs {
-  id  String  @id   @default(uuid())
-  name  String
-  packPrompt  PackPrompts[]
+  id              String              @id                @default(uuid())
+  name            String
+  packPrompt      PackPrompts[]
 }
 
 model PackPrompts {
-  id  String  @id   @default(uuid())
-  prompt  String
-  packId  String
-  pack Packs  @relation(fields: [packId], references: [id])
+  id              String              @id                @default(uuid())
+  prompt          String
+  packId          String
+  pack            Packs               @relation(fields: [packId], references: [id])
 }
 
 enum GenderEnum {
@@ -85,6 +86,7 @@ enum EthinicityEnum {
 
 enum EyeColorEnum {
   Brown
-  BlueHazel
+  Blue
+  Hazel
   Gray
 }
