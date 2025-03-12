@@ -2,6 +2,7 @@ import express from "express";
 import { TrainModel, GenerateImage, GeneratePackImages } from "common/types";
 import { prismaClient } from "db";
 
+
 const PORT = process.env.PORT || 8080;
 const app = express();
 app.use(express.json());
@@ -83,13 +84,28 @@ app.post(`/v1/ai/generate/pack`, async (req, res) => {
   res.status(200).json({ imageIDs: data.map((image) => image.id) });
 });
 
-app.get(`/v1/pack/bulk`, (req, res) => {
+app.get(`/v1/pack/bulk`, async (req, res) => {
   //TODO : Add caching here
-  const packs = prismaClient.packs.findMany({});
+  const packs = await prismaClient.packs.findMany({});
   res.json({ packs });
 });
 
-app.get("/v1/image/bulk", (req, res) => {});
+app.get("/v1/image/bulk", async (req, res) => {
+  const imageIds = req.query.ids as string[];
+  const limit = (req.query.limit as string) ?? "10";
+  const offset = (req.query.offset as string) ?? "0";
+
+  const imagesData = await prismaClient.outputImages.findMany({
+    where: {
+      id: {
+        in: imageIds,
+      },
+      userId: USER_ID,
+    },
+    take: parseInt(limit),
+    skip: parseInt(offset),
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);
