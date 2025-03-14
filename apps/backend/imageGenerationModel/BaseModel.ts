@@ -1,7 +1,17 @@
 export class BaseModel {
   constructor() {}
 
-  private async trainModel(inputImages: string[], triggerWord: string) {}
+  public async trainModel(
+    zippedImagesUrl: string,
+    triggerWord: string
+  ): Promise<{ request_id: string; response_url: string }> {
+    return { request_id: "", response_url: "" };
+  }
 
-  private async generateImage(prompt: String, tensorPath: string) {}
+  public async generateImage(
+    prompt: string,
+    tensorPath: string
+  ): Promise<{ request_id: string; response_url: string }> {
+    return { request_id: "", response_url: "" };
+  }
 }

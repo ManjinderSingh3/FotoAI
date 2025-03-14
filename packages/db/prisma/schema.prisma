@@ -22,7 +22,7 @@ model User {
 }
 
 model TrainModel {
-  id              String              @id                @default(uuid())
+  id              String                     @id                @default(uuid())
   userId          String
   name            String
   gender          TrainModelGenderEnum
@@ -30,10 +30,27 @@ model TrainModel {
   ethinicity      TrainModelEthinicityEnum
   eyeColor        TrainModelEyeColorEnum
   bald            Boolean
+  triggerWord     String?
+  tensorPath      String?
+  trainingStatus  TrainModelStatusEnum      @default(Pending)
+  falAIRequestId  String?  
   trainingImgaes  TrainingImages[]
-  outputImages    OutputImages[]
-  createdAt       DateTime            @default(now())
-  updatedAt       DateTime            @updatedAt
+  GenerateImages  GenerateImages[]
+  createdAt       DateTime                  @default(now())
+  updatedAt       DateTime                  @updatedAt
+}
+
+model GenerateImages {
+  id              String                    @id                @default(uuid())
+  userId          String
+  imageUrl        String                    @default("")   
+  trainModelId    String
+  status          GenerateImagesStatusEnum    @default(Pending)
+  prompt          String
+  falAIRequestId  String?
+  trainModel      TrainModel                @relation(fields: [trainModelId], references: [id])
+  createdAt       DateTime                  @default(now())
+  updatedAt       DateTime                  @updatedAt
 }
 
 model TrainingImages {
@@ -41,18 +58,6 @@ model TrainingImages {
   imageUrl        String
   trainModelId    String
   trainModel      TrainModel          @relation(fields: [trainModelId], references: [id])
-}
-
-model OutputImages {
-  id              String                    @id                @default(uuid())
-  userId          String
-  imageUrl        String                    @default("")   
-  trainModelId    String
-  status          OutputImagesStatusEnum    @default(Pending)
-  prompt          String
-  trainModel      TrainModel                @relation(fields: [trainModelId], references: [id])
-  createdAt       DateTime                  @default(now())
-  updatedAt       DateTime                  @updatedAt
 }
 
 model Packs {
@@ -93,7 +98,13 @@ enum TrainModelEyeColorEnum {
   Gray
 }
 
-enum OutputImagesStatusEnum {
+enum TrainModelStatusEnum {
+  Pending
+  Generated
+  Failed
+}
+
+enum GenerateImagesStatusEnum {
   Pending
   Generated
   Failed

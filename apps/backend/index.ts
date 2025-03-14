@@ -2,13 +2,12 @@ import express from "express";
 import { TrainModel, GenerateImage, GeneratePackImages } from "common/types";
 import { prismaClient } from "db";
 
-
 const PORT = process.env.PORT || 8080;
 const app = express();
 app.use(express.json());
 const USER_ID = "12345";
 
-app.post(`/v1/ai/train`, async (req, res) => {
+app.post(`/v1/ai/train-model`, async (req, res) => {
   try {
     const parsedBody = TrainModel.safeParse(req.body);
     if (!parsedBody.success) {
@@ -34,7 +33,7 @@ app.post(`/v1/ai/train`, async (req, res) => {
   }
 });
 
-app.post(`/v1/ai/generate`, async (req, res) => {
+app.post(`/v1/ai/generate-image`, async (req, res) => {
   try {
     const parsedBody = GenerateImage.safeParse(req.body);
     if (!parsedBody.success) {
@@ -42,7 +41,7 @@ app.post(`/v1/ai/generate`, async (req, res) => {
       return;
     }
 
-    const data = await prismaClient.outputImages.create({
+    const data = await prismaClient.generateImages.create({
       data: {
         userId: USER_ID,
         imageUrl: "",
@@ -72,7 +71,7 @@ app.post(`/v1/ai/generate/pack`, async (req, res) => {
     },
   });
 
-  const data = await prismaClient.outputImages.createManyAndReturn({
+  const data = await prismaClient.generateImages.createManyAndReturn({
     data: prompts.map((prompt) => ({
       userId: USER_ID,
       imageUrl: "",
@@ -95,7 +94,7 @@ app.get("/v1/image/bulk", async (req, res) => {
   const limit = (req.query.limit as string) ?? "10";
   const offset = (req.query.offset as string) ?? "0";
 
-  const imagesData = await prismaClient.outputImages.findMany({
+  const imagesData = await prismaClient.generateImages.findMany({
     where: {
       id: {
         in: imageIds,
@@ -106,6 +105,12 @@ app.get("/v1/image/bulk", async (req, res) => {
     skip: parseInt(offset),
   });
 });
+
+app.post("/fal-ai/webhook/train-model", async (req, res) => {
+  const request_id = req.body.request_id;
+});
+
+app.post("fal-ai/webhook/generate-image", async (req, res) => {});
 
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);
