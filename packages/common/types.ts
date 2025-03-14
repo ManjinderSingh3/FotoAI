@@ -22,7 +22,7 @@ export const TrainModel = z.object({
 
 export const GenerateImage = z.object({
   prompt: z.string(),
-  trainModelId: z.string(),
+  trainedModelId: z.string(),
   num: z.number(),
 });
 

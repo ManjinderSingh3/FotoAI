@@ -1,11 +1,14 @@
 import express from "express";
 import { TrainModel, GenerateImage, GeneratePackImages } from "common/types";
 import { prismaClient } from "db";
+import { S3Client } from "bun";
+import { FalAIModel } from "./imageGenerationModel/FalAIModel";
 
 const PORT = process.env.PORT || 8080;
 const app = express();
 app.use(express.json());
 const USER_ID = "12345";
+const falAIModel = new FalAIModel();
 
 app.post(`/v1/ai/train-model`, async (req, res) => {
   try {
@@ -14,6 +17,11 @@ app.post(`/v1/ai/train-model`, async (req, res) => {
       res.status(411).json({ message: "Incorrect Inputs" });
       return;
     }
+
+    const { request_id } = await falAIModel.trainModel(
+      "",
+      parsedBody.data.name
+    );
 
     const data = await prismaClient.trainModel.create({
       data: {
@@ -24,6 +32,7 @@ app.post(`/v1/ai/train-model`, async (req, res) => {
         eyeColor: parsedBody.data.eyeColor,
         bald: parsedBody.data.bald,
         userId: USER_ID,
+        falAIRequestId: request_id,
       },
     });
     res.json({ trainModelId: data.id });
@@ -41,12 +50,28 @@ app.post(`/v1/ai/generate-image`, async (req, res) => {
       return;
     }
 
+    const model = await prismaClient.trainModel.findUnique({
+      where: {
+        id: parsedBody.data.trainedModelId,
+      },
+    });
+
+    if (!model || !model.tensorPath) {
+      res.status(411).json({ message: "Model not found" });
+      return;
+    }
+
+    const { request_id, response_url } = await falAIModel.generateImage(
+      parsedBody.data.prompt,
+      model.tensorPath
+    );
     const data = await prismaClient.generateImages.create({
       data: {
         userId: USER_ID,
         imageUrl: "",
-        trainModelId: parsedBody.data.trainModelId,
+        trainedModelId: parsedBody.data.trainedModelId,
         prompt: parsedBody.data.prompt,
+        falAIRequestId: request_id,
       },
     });
 
@@ -107,10 +132,34 @@ app.get("/v1/image/bulk", async (req, res) => {
 });
 
 app.post("/fal-ai/webhook/train-model", async (req, res) => {
-  const request_id = req.body.request_id;
+  console.log("Train-model webhook endpoint", req.body);
+  const requestId = req.body.request_id;
+  await prismaClient.trainModel.updateMany({
+    where: {
+      falAIRequestId: requestId,
+    },
+    data: {
+      trainingStatus: "Generated",
+      tensorPath: req.body.tensor_path,
+    },
+  });
+  res.json({ message: "Train Model Webhook received" });
 });
 
-app.post("fal-ai/webhook/generate-image", async (req, res) => {});
+app.post("fal-ai/webhook/generate-image", async (req, res) => {
+  console.log("Generate-Image webhook endpoint");
+  const requestId = req.body.request_id;
+  await prismaClient.generateImages.updateMany({
+    where: {
+      falAIRequestId: requestId,
+    },
+    data: {
+      status: "Generated",
+      imageUrl: req.body.image_url,
+    },
+  });
+  res.json({ message: "Generate Image Webhook received" });
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);
