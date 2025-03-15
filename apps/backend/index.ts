@@ -10,6 +10,19 @@ app.use(express.json());
 const USER_ID = "12345";
 const falAIModel = new FalAIModel();
 
+// Pre-Signed URLS is the standard way of storing in S3 from browser
+app.get("/pre-signed-url", async (req, res) => {
+  const fileName = `models/training-data_${Date.now()}_${crypto.randomUUID()}.zip`;
+  const url = S3Client.presign(fileName, {
+    accessKeyId: process.env.R2_ACCESS_KEY,
+    secretAccessKey: process.env.R2_SECRET_KEY,
+    endpoint: process.env.ENDPOINT,
+    bucket: process.env.BUCKET_NAME,
+    expiresIn: 60 * 60 * 24 * 30,
+  });
+  res.json({ url, fileName });
+});
+
 app.post(`/v1/ai/train-model`, async (req, res) => {
   try {
     const parsedBody = TrainModel.safeParse(req.body);
@@ -19,7 +32,7 @@ app.post(`/v1/ai/train-model`, async (req, res) => {
     }
 
     const { request_id } = await falAIModel.trainModel(
-      "",
+      parsedBody.data.zipUrl,
       parsedBody.data.name
     );
 
@@ -33,6 +46,7 @@ app.post(`/v1/ai/train-model`, async (req, res) => {
         bald: parsedBody.data.bald,
         userId: USER_ID,
         falAIRequestId: request_id,
+        zipUrl: parsedBody.data.zipUrl,
       },
     });
     res.json({ trainModelId: data.id });
@@ -90,22 +104,39 @@ app.post(`/v1/ai/generate/pack`, async (req, res) => {
     return;
   }
 
+  const model = await prismaClient.trainModel.findUnique({
+    where: {
+      id: parsedBody.data.modelId,
+    },
+  });
+
+  if (!model || !model.tensorPath) {
+    res.status(411).json({ message: "Model not found" });
+    return;
+  }
+
   const prompts = await prismaClient.packPrompts.findMany({
     where: {
       packId: parsedBody.data.packId,
     },
   });
 
-  const data = await prismaClient.generateImages.createManyAndReturn({
-    data: prompts.map((prompt) => ({
+  let requestIds: { request_id: string }[] = await Promise.all(
+    prompts.map((prompt) =>
+      falAIModel.generateImage(prompt.prompt, model.tensorPath!)
+    )
+  );
+
+  const images = await prismaClient.generateImages.createManyAndReturn({
+    data: prompts.map((prompt, index) => ({
       userId: USER_ID,
       imageUrl: "",
-      trainModelId: parsedBody.data.modelId,
+      trainedModelId: parsedBody.data.modelId,
       prompt: prompt.prompt,
+      falAIRequestId: requestIds[index].request_id,
     })),
   });
-
-  res.status(200).json({ imageIDs: data.map((image) => image.id) });
+  res.status(200).json({ imageIDs: images.map((image) => image.id) });
 });
 
 app.get(`/v1/pack/bulk`, async (req, res) => {
@@ -147,7 +178,7 @@ app.post("/fal-ai/webhook/train-model", async (req, res) => {
 });
 
 app.post("fal-ai/webhook/generate-image", async (req, res) => {
-  console.log("Generate-Image webhook endpoint");
+  console.log("Generate-Image webhook endpoint", req.body);
   const requestId = req.body.request_id;
   await prismaClient.generateImages.updateMany({
     where: {
