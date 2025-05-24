@@ -1,0 +1,17 @@
+FROM oven/bun:1
+
+WORKDIR /usr/src/app
+COPY package.json bun.lock turbo.json tsconfig.json ./
+
+# Cached computationaly expensive step of Installing dependencies
+RUN bun install 
+
+COPY . .
+
+RUN bunx turbo build --filter=backend...
+RUN bun run generate:db
+
+EXPOSE 8080
+
+# Start Backend Application
+CMD ["bun", "start:backend"]
