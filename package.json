@@ -7,15 +7,16 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "start:web": "cd ./apps/web && bun run start",
-    "start:backend": "cd: ./apps/backend && bun run start",
-    "generate:db": "cd ./packages/db && npx prisma generate && cd ../..",
+    "start:backend": "cd ./apps/backend && bun run start",
+    "generate:db": "cd ./packages/db && bunx prisma generate && cd ../..",
     "check-types": "turbo run check-types"
   },
   "devDependencies": {
+    "@types/bun": "latest",
     "prettier": "^3.5.3",
+    "prisma": "6.8.2",
     "turbo": "^2.4.4",
-    "typescript": "5.8.2",
-    "@types/bun": "latest"
+    "typescript": "5.8.2"
   },
   "engines": {
     "node": ">=18"
@@ -26,5 +27,8 @@
     "packages/*"
   ],
   "module": "index.ts",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@prisma/client": "6.8.2"
+  }
 }
