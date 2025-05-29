@@ -6,11 +6,7 @@ import { Hero } from "@/components/home/Hero";
 export default function Home() {
   return (
     <div>
-      <Button className="outline">Click here !</Button>
-      <h1 className="text-3xl font-bold underline text-red-500">
-        Hello world!
-      </h1>
-      ;
+      <Hero/>
     </div>
   );
 }
