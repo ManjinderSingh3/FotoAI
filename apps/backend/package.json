@@ -7,7 +7,8 @@
   },
   "private": true,
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/cors": "^2.8.18"
   },
   "peerDependencies": {
     "typescript": "^5"
@@ -16,6 +17,7 @@
     "@fal-ai/client": "^1.2.3",
     "@types/express": "^5.0.0",
     "common": "*",
+    "cors": "^2.8.5",
     "db": "*",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2"

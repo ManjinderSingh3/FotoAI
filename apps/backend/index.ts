@@ -4,9 +4,18 @@ import { prismaClient } from "db";
 import { S3Client } from "bun";
 import { FalAIModel } from "./imageGenerationModel/FalAIModel";
 import { authMiddleware } from "./middleware";
+import cors from "cors";
 
 const PORT = process.env.PORT || 8080;
 const app = express();
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["COntent-Type", "Authorization"],
+  })
+);
 app.use(express.json());
 const USER_ID = "12345";
 const falAIModel = new FalAIModel();
@@ -26,6 +35,7 @@ app.get("/pre-signed-url", async (req, res) => {
 
 app.post(`/v1/ai/train-model`, authMiddleware, async (req, res) => {
   try {
+    console.log("Reached Training API");
     const parsedBody = TrainModel.safeParse(req.body);
     if (!parsedBody.success) {
       res.status(411).json({ message: "Incorrect Inputs" });

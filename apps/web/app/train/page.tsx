@@ -1,13 +1,27 @@
-
 "use client";
 
 import { Box, Lock, Search, Settings, Sparkles } from "lucide-react";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
-import { FileUpload } from "@/components/ui/file-upload";
+import { UploadFile } from "./upload-file";
 import React, { useState } from "react";
+import { useAuth } from "@clerk/nextjs";
+import { BACKEND_URL } from "../config";
+import axios from "axios";
+import { Button } from "@/components/ui/button";
 
 export default function Train() {
+  const { getToken } = useAuth();
   const [files, setFiles] = useState<File[]>([]);
+
+  const trainModel = async () => {
+    const token = getToken;
+    await axios.post(`${BACKEND_URL}/v1/ai/train-model`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+  };
+
   const handleFileUpload = (files: File[]) => {
     setFiles(files);
     console.log(files);
@@ -15,8 +29,9 @@ export default function Train() {
   return (
     <>
       <div className="w-full max-w-4xl mx-auto min-h-96 border border-dashed bg-white dark:bg-black border-neutral-200 dark:border-neutral-800 rounded-lg m-5">
-        <FileUpload onChange={handleFileUpload} />
+        <UploadFile onChange={handleFileUpload} />
       </div>
+      <Button onClick={trainModel}>Upload File</Button>
 
       <ul className="grid grid-cols-1 grid-rows-none gap-4 md:grid-cols-12 md:grid-rows-3 lg:gap-4 xl:max-h-[34rem] xl:grid-rows-2">
         <GridItem
@@ -33,29 +48,6 @@ export default function Train() {
           }
           title="The best AI code editor ever."
           description="Yes, it's true. I'm not even kidding. Ask my mom if you don't believe me."
-        />
-
-        <GridItem
-          area="md:[grid-area:2/1/3/7] xl:[grid-area:1/5/3/8]"
-          icon={<Lock className="h-4 w-4 text-black dark:text-neutral-400" />}
-          title="You should buy Aceternity UI Pro"
-          description="It's the best money you'll ever spend"
-        />
-
-        <GridItem
-          area="md:[grid-area:2/7/3/13] xl:[grid-area:1/8/2/13]"
-          icon={
-            <Sparkles className="h-4 w-4 text-black dark:text-neutral-400" />
-          }
-          title="This card is also built by Cursor"
-          description="I'm not even kidding. Ask my mom if you don't believe me."
-        />
-
-        <GridItem
-          area="md:[grid-area:3/1/4/13] xl:[grid-area:2/8/3/13]"
-          icon={<Search className="h-4 w-4 text-black dark:text-neutral-400" />}
-          title="Coming soon on Aceternity UI"
-          description="I'm writing the code as I record this, no shit."
         />
       </ul>
     </>
