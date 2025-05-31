@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Navbar } from "@/components/navbar/Navbar";
 import { Footer } from "@/components/Footer";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -15,7 +16,8 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "FotoAI - Personal AI Photographer",
-  description: "An AI Photographer to handle all your photo needs, eliminating the need for a cameraman",
+  description:
+    "An AI Photographer to handle all your photo needs, eliminating the need for a cameraman",
 };
 
 export default function RootLayout({
@@ -25,10 +27,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Navbar />
-        {children}
-      </body>
+      <ClerkProvider>
+        <body className={`${geistSans.variable} ${geistMono.variable}`}>
+          <Navbar />
+          {children}
+        </body>
+      </ClerkProvider>
     </html>
   );
 }

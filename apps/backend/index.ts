@@ -3,6 +3,7 @@ import { TrainModel, GenerateImage, GeneratePackImages } from "common/types";
 import { prismaClient } from "db";
 import { S3Client } from "bun";
 import { FalAIModel } from "./imageGenerationModel/FalAIModel";
+import { authMiddleware } from "./middleware";
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -23,7 +24,7 @@ app.get("/pre-signed-url", async (req, res) => {
   res.json({ url, fileName });
 });
 
-app.post(`/v1/ai/train-model`, async (req, res) => {
+app.post(`/v1/ai/train-model`, authMiddleware, async (req, res) => {
   try {
     const parsedBody = TrainModel.safeParse(req.body);
     if (!parsedBody.success) {
@@ -56,7 +57,7 @@ app.post(`/v1/ai/train-model`, async (req, res) => {
   }
 });
 
-app.post(`/v1/ai/generate-image`, async (req, res) => {
+app.post(`/v1/ai/generate-image`, authMiddleware, async (req, res) => {
   try {
     const parsedBody = GenerateImage.safeParse(req.body);
     if (!parsedBody.success) {
@@ -96,7 +97,7 @@ app.post(`/v1/ai/generate-image`, async (req, res) => {
   }
 });
 
-app.post(`/v1/ai/generate/pack`, async (req, res) => {
+app.post(`/v1/ai/generate/pack`, authMiddleware, async (req, res) => {
   const parsedBody = GeneratePackImages.safeParse(req.body);
 
   if (!parsedBody.success) {
@@ -145,7 +146,7 @@ app.get(`/v1/pack/bulk`, async (req, res) => {
   res.json({ packs });
 });
 
-app.get("/v1/image/bulk", async (req, res) => {
+app.get("/v1/image/bulk", authMiddleware, async (req, res) => {
   const imageIds = req.query.ids as string[];
   const limit = (req.query.limit as string) ?? "10";
   const offset = (req.query.offset as string) ?? "0";
