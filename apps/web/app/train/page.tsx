@@ -10,6 +10,7 @@ import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { AIModelTrainingForm } from "./training-form";
 
+
 export default function Train() {
   const { getToken } = useAuth();
   const [files, setFiles] = useState<File[]>([]);
@@ -85,7 +86,7 @@ export default function Train() {
 //                 {title}
 //               </h3>
 //               <h2
-//                 className="[&_b]:md:font-semibold [&_strong]:md:font-semibold font-sans text-sm/[1.125rem] 
+//                 className="[&_b]:md:font-semibold [&_strong]:md:font-semibold font-sans text-sm/[1.125rem]
 //               md:text-base/[1.375rem]  text-black dark:text-neutral-400"
 //               >
 //                 {description}

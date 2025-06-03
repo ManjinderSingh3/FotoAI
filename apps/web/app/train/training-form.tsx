@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 export function AIModelTrainingForm() {
   const [formData, setFormData] = useState({
@@ -54,7 +56,7 @@ export function AIModelTrainingForm() {
           {/* Form Panel */}
           <motion.div
             variants={itemVariants}
-            className="bg-zinc-950/60 backdrop-blur-xl border border-zinc-800 rounded-2xl p-8 h-fit sticky top-8"
+            className="bg-zinc-200 backdrop-blur-xl border border-zinc-800 rounded-2xl p-8 h-fit sticky top-8"
           >
             {/* Header */}
             <motion.div variants={itemVariants} className="text-center mb-8">
@@ -90,24 +92,8 @@ export function AIModelTrainingForm() {
 
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-zinc-300 mb-2">
-                      Model Name
-                    </label>
-                    <motion.input
-                      type="text"
-                      placeholder="Enter a unique name..."
-                      value={formData.modelName}
-                      onChange={(e) =>
-                        handleInputChange("modelName", e.target.value)
-                      }
-                      className="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-cyan-500 transition-colors"
-                      whileFocus={{ scale: 1.01 }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 30,
-                      }}
-                    />
+                    <Label>Model Name</Label>
+                    <Input id="model-name" type="text"></Input>
                   </div>
 
                   <div>
