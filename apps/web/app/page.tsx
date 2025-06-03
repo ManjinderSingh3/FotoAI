@@ -1,12 +1,16 @@
-import Image, { type ImageProps } from "next/image";
-import { Button } from "../components/ui/button";
-import styles from "./page.module.css";
+"use client";
 import { Hero } from "@/components/home/Hero";
+import { useAuth } from "@/hooks/useAuth";
+import { redirect } from "next/navigation";
 
 export default function Home() {
+  const { user } = useAuth();
+  if (user) {
+    redirect("/dashboard");
+  }
   return (
     <div>
-      <Hero/>
+      <Hero />
     </div>
   );
 }

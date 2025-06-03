@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
 export function AIModelTrainingForm() {
   const [formData, setFormData] = useState({
@@ -44,7 +45,17 @@ export function AIModelTrainingForm() {
   };
 
   return (
-    <div>
+    <div className="flex justify-center items-center flex-col">
+      <div
+        className={cn(
+          "w-102 min-h-[36rem] h-[36rem] rounded-xl",
+          "shadow-[0_1px_1px_rgba(0,0,0,0.05),0_4px_6px_rgba(34,42,53,0.04),0_24px_68px_rgba(47,48,55,0.05),0_2px_3px_rgba(0,0,0,0.04)]",
+          "p-6 flex flex-col"
+        )}
+      >
+        <h1 className="font-bold text-2xl">Train New Model</h1>
+        <p>Create your personalized AI avatar</p>
+      </div>
       {/* Background Effects */}
       <div className="relative z-10 container mx-auto px-4 py-8">
         <motion.div
@@ -56,7 +67,7 @@ export function AIModelTrainingForm() {
           {/* Form Panel */}
           <motion.div
             variants={itemVariants}
-            className="bg-zinc-200 backdrop-blur-xl border border-zinc-800 rounded-2xl p-8 h-fit sticky top-8"
+            className="bg-zinc-600 backdrop-blur-xl border border-zinc-800 rounded-2xl p-8 h-fit sticky top-8"
           >
             {/* Header */}
             <motion.div variants={itemVariants} className="text-center mb-8">
