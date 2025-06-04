@@ -10,8 +10,11 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { useAuth } from "@/hooks/useAuth";
+import { Button } from "../ui/button";
 
 export function Navbar() {
+  const { user } = useAuth();
   return (
     <>
       <div className="flex items-center justify-between p-6">
@@ -29,18 +32,34 @@ export function Navbar() {
             </Link>
           </motion.div>
         </div>
-
+        {user ? (
+          <div className="flex space-x-3">
+            <Button className="dark:bg-white">Train Model</Button>
+            <Button className="dark:bg-white">Generate Images</Button>
+            <Button className="dark:bg-white">Pack</Button>
+            <Button className="dark:bg-white">Billing</Button>
+            {/* Train Model*/}
+            {/* Generate Images*/}
+            {/* Generate Pack*/}
+            {/* Credits / Pricing*/}
+            {/* My Purchases*/}
+          </div>
+        ) : (
+          <></>
+        )}
         {/* Pricing and Authentication */}
         <div>
           <SignedIn>
-            <ThemeToggle />
-            <UserButton />
+            <div className="flex space-x-3">
+              <ThemeToggle />
+              <UserButton />
+            </div>
           </SignedIn>
           <SignedOut>
             <div className="flex space-x-4">
               <ThemeToggle />
               <button className="group relative rounded-full p-px text-sm/6 text-zinc-900 hover:text-zinc-400 dark:text-zinc-400 duration-300 dark:hover:text-zinc-100 border hover:shadow-[0_0_10px_rgba(56,189,248,0.6)]">
-                <div className="relative z-10 rounded-full  px-4 py-1 ring-1 ring-white/10">
+                <div className="relative z-10 rounded-full px-4 py-1 ring-1 ring-white/10">
                   Pricing
                 </div>
                 <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-cyan-400/0 via-cyan-400/90 to-cyan-400/0 transition-opacity duration-500 group-hover:opacity-40"></span>
