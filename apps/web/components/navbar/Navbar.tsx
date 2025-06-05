@@ -27,7 +27,7 @@ export function Navbar() {
             >
               <LogoIcon className="h-8 w-8 text-black dark:text-white" />
               <span className="hidden font-bold font-mono text-xl sm:inline-block mt-1.5">
-                Foto<span className="text-cyan-500">AI</span>
+                Foto<span className="text-cyan-700">AI</span>
               </span>
             </Link>
           </motion.div>
