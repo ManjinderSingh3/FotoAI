@@ -16,7 +16,7 @@ import { Button } from "../ui/button";
 export function Navbar() {
   const { user } = useAuth();
   return (
-    <>
+    <div className="relative z-10">
       <div className="flex items-center justify-between p-6">
         {/* Logo */}
         <div>
@@ -27,7 +27,7 @@ export function Navbar() {
             >
               <LogoIcon className="h-8 w-8 text-black dark:text-white" />
               <span className="hidden font-bold font-mono text-xl sm:inline-block mt-1.5">
-                Foto<span className="text-cyan-700">AI</span>
+                Foto<span className="text-black">AI</span>
               </span>
             </Link>
           </motion.div>
@@ -76,6 +76,6 @@ export function Navbar() {
           </SignedOut>
         </div>
       </div>
-    </>
+    </div>
   );
 }
