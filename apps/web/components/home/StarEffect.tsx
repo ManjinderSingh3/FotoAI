@@ -20,6 +20,7 @@ export function StarEffect({ count = 40 }: { count?: number }) {
   const [stars, setStars] = React.useState<Star[]>([]);
   const [mounted, setMounted] = React.useState(false);
 
+  // Generate initial random positions on mount
   React.useEffect(() => {
     setMounted(true);
     setStars(
@@ -27,14 +28,24 @@ export function StarEffect({ count = 40 }: { count?: number }) {
         ...randomPosition(),
         size: Math.random() * 2 + 1,
         opacity: Math.random() * 0.5 + 0.3,
-        duration: 24 + Math.random() * 12, // 24-36 seconds
+        duration: 8 + Math.random() * 4, // 8-12 seconds
       }))
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count]);
 
+  // Immediately trigger first movement, then set up intervals for further movement
   React.useEffect(() => {
     if (!mounted) return;
+    // Move all stars once immediately
+    setStars((prev) =>
+      prev.map((star) => ({
+        ...randomPosition(),
+        size: star.size,
+        opacity: star.opacity,
+        duration: 24 + Math.random() * 12,
+      }))
+    );
+    // Then set up intervals for further movement
     const intervals = stars.map((_, i) =>
       setInterval(
         () => {
@@ -46,7 +57,7 @@ export function StarEffect({ count = 40 }: { count?: number }) {
               ...randomPosition(),
               size,
               opacity,
-              duration: 24 + Math.random() * 12, // 24-36 seconds
+              duration: 8 + Math.random() * 4,
             };
             return updated;
           });
@@ -64,15 +75,19 @@ export function StarEffect({ count = 40 }: { count?: number }) {
       {stars.map((star, i) => (
         <motion.div
           key={i}
+          initial={false}
           animate={{ left: `${star.left}%`, top: `${star.top}%` }}
-          transition={{ duration: star.duration, ease: "easeInOut" }}
+          transition={{
+            duration: star.duration,
+            ease: "easeInOut",
+          }}
           style={{
             position: "absolute",
             width: star.size,
             height: star.size,
-            opacity: star.opacity,
+            backgroundColor: `rgba(255,255,255,${star.opacity})`,
           }}
-          className="bg-white rounded-full"
+          className="rounded-full"
         />
       ))}
     </div>
