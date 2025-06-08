@@ -4,14 +4,36 @@ import { GithubIcon } from "./GithubIcon";
 import { LinkedInIcon } from "./LinkedInIcon";
 import { TwitterIcon } from "./TwitterIcon";
 import { FOOTER_ITEMS } from "./Footer-Items";
+import { motion } from "framer-motion";
+import { LogoIcon } from "../navbar/LogoIcon";
+import { useEffect, useState } from "react";
 
 export const Footer = () => {
+  const [year, setYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
+
   return (
-    <footer className="container z-10 border-t border-gray-200 py-8 backdrop-blur-lg">
+    <div className="relative z-10 border-t border-gray-200 py-8 backdrop-blur-lg max-w-5xl mx-auto">
       <div className="grid md:grid-cols-3 gap-8">
         <div className="space-y-8 md:col-span-2">
+          <div>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link
+                href="/"
+                className="flex items-center gap-2 transition-opacity hover:opacity-90"
+              >
+                <LogoIcon className="h-8 w-8 text-black dark:text-white" />
+                <span className="hidden font-bold font-mono text-xl sm:inline-block mt-1.5">
+                  Foto<span className="text-black">AI</span>
+                </span>
+              </Link>
+            </motion.div>
+          </div>
           <p className="text-sm text-primary">
-            Offering wide range of Industry ready courses !
+            Experience the Future of Image Creation with AI !
           </p>
           <div className="flex items-center space-x-2">
             <a
@@ -44,9 +66,6 @@ export const Footer = () => {
               <LinkedInIcon className="h-5 w-5" />
             </a>
           </div>
-          <p className="text-sm text-primary">
-            © {new Date().getFullYear()} Manjinder
-          </p>
         </div>
 
         <div className="grid l:ml-10">
@@ -54,7 +73,7 @@ export const Footer = () => {
             <div className="lg:ml-16">
               <h3 className="text-sm font-semibold text-primary">Features</h3>
               <ul role="list" className="mt-4 space-y-4">
-                {FOOTER_ITEMS.legal.map((item) => (
+                {FOOTER_ITEMS.company.map((item) => (
                   <li key={item.name}>
                     <Link
                       href={item.href}
@@ -85,6 +104,11 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
+      <div className="flex justify-center mt-4">
+            <p className="text-sm text-primary">
+              © {year ?? ""} FotoAI. All rights reserved
+            </p>
+          </div>
+    </div>
   );
 };

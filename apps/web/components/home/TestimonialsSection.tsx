@@ -11,9 +11,18 @@ type Testimonial = {
   src: string;
 };
 
-export function Testimonials({testimonials}: { testimonials: Testimonial[] }) {
-
+export function Testimonials({
+  testimonials,
+}: {
+  testimonials: Testimonial[];
+}) {
   const [active, setActive] = useState(0);
+  const [rotations, setRotations] = useState<number[]>([]);
+
+  useEffect(() => {
+    // Generate a random rotation for each testimonial, only on the client
+    setRotations(testimonials.map(() => Math.floor(Math.random() * 21) - 10));
+  }, [testimonials.length]);
 
   const handleNext = () => {
     setActive((prev) => (prev + 1) % testimonials.length);
@@ -27,11 +36,8 @@ export function Testimonials({testimonials}: { testimonials: Testimonial[] }) {
     return index === active;
   };
 
-  const randomRotateY = () => {
-    return Math.floor(Math.random() * 21) - 10;
-  };
-
-  if (!testimonials[active]) return null;
+  if (!testimonials[active] || rotations.length !== testimonials.length)
+    return null;
   return (
     <div className="mx-auto max-w-sm px-4 py-20 font-sans antialiased md:max-w-4xl md:px-8 lg:px-12">
       <div className="relative grid grid-cols-1 gap-20 md:grid-cols-2">
@@ -45,13 +51,13 @@ export function Testimonials({testimonials}: { testimonials: Testimonial[] }) {
                     opacity: 0,
                     scale: 0.9,
                     z: -100,
-                    rotate: randomRotateY(),
+                    rotate: rotations[index],
                   }}
                   animate={{
                     opacity: isActive(index) ? 1 : 0.7,
                     scale: isActive(index) ? 1 : 0.95,
                     z: isActive(index) ? 0 : -100,
-                    rotate: isActive(index) ? 0 : randomRotateY(),
+                    rotate: isActive(index) ? 0 : rotations[index],
                     zIndex: isActive(index)
                       ? 40
                       : testimonials.length + 2 - index,
@@ -61,7 +67,7 @@ export function Testimonials({testimonials}: { testimonials: Testimonial[] }) {
                     opacity: 0,
                     scale: 0.9,
                     z: 100,
-                    rotate: randomRotateY(),
+                    rotate: rotations[index],
                   }}
                   transition={{
                     duration: 0.4,

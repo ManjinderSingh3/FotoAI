@@ -44,7 +44,7 @@ export function Hero() {
   return (
     <div>
       <BackgroundEffects />
-      <div className="relative z-10 text-center text-zinc-400 mt-22">
+      <div className="relative z-10 text-center text-zinc-400 mt-12">
         <h1 className=" text-7xl font-bold tracking-tight max-w-5xl mx-auto leading-tight">
           Create Stunning AI-Generated Images in Seconds
           {/* <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">
