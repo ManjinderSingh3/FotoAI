@@ -17,8 +17,8 @@ export const Footer = () => {
 
   return (
     <div className="relative z-10 border-t border-gray-200 py-8 backdrop-blur-lg max-w-5xl mx-auto">
-      <div className="grid md:grid-cols-3 gap-8">
-        <div className="space-y-8 md:col-span-2">
+      <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div className="space-y-8 md:col-span-2 ml-6">
           <div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link

@@ -66,8 +66,9 @@ export function Hero() {
           <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-cyan-400/0 via-cyan-400/90 to-cyan-400/0 transition-opacity duration-500 group-hover:opacity-40"></span>
         </button>
       </div>
-      {/* <HowItWorks/> */}
+      <HowItWorks/>
       <Testimonials testimonials={testimonials} />
+      {/* <GlowingBorderBox/> */}
     </div>
   );
 }
