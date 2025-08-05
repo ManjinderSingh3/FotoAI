@@ -39,6 +39,7 @@ export class AIService {
       };
     } catch (error) {
       console.error("Error in trainModel service:", error);
+      throw error;
     }
   }
 }

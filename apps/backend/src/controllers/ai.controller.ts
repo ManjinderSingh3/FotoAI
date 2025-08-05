@@ -38,6 +38,7 @@ export class AIController {
       console.error("Error in train-model controller: ", error);
       res.status(500).json({
         message: "Failed to start model training",
+        error: error instanceof Error ? error.message : "Unknown error",
       });
     }
   }
