@@ -8,7 +8,7 @@ export class S3Controller {
     this.s3Service = S3Service.getInstance();
   }
 
-  public getPreSignedUrl = async (req: Request, res: Response) => {
+  public async getPreSignedUrl(req: Request, res: Response): Promise<void> {
     try {
       const { url, fileName } = this.s3Service.generatePreSignedUrl();
       res.json({ url, fileName });
@@ -16,5 +16,5 @@ export class S3Controller {
       console.error("Error generating pre-signed URL:", error);
       res.status(500).json({ message: "Failed to generate pre-signed URL" });
     }
-  };
+  }
 }
