@@ -4,7 +4,7 @@ import { Box, Lock, Search, Settings, Sparkles } from "lucide-react";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { UploadFile } from "./upload-file";
 import React, { useState } from "react";
-import { useAuth } from "@clerk/nextjs";
+import { useAuth } from "@/hooks/useAuth";
 import { BACKEND_URL } from "../config";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
@@ -16,7 +16,7 @@ export default function Train() {
   const [files, setFiles] = useState<File[]>([]);
 
   const trainModel = async () => {
-    const token = getToken;
+    const token = await getToken();
     await axios.post(`${BACKEND_URL}/v1/ai/train-model`, {
       headers: {
         authorization: `Bearer ${token}`,

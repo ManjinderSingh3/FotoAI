@@ -37,6 +37,7 @@ app.get("/pre-signed-url", async (req, res) => {
   res.json({ url, fileName });
 });
 
+/*
 app.post(`/v1/ai/train-model`, authMiddleware, async (req, res) => {
   try {
     console.log("Reached Training API");
@@ -70,6 +71,7 @@ app.post(`/v1/ai/train-model`, authMiddleware, async (req, res) => {
     res.status(500).json({ message: "Failure in Training API" });
   }
 });
+*/
 
 app.post(`/v1/ai/generate-image`, authMiddleware, async (req, res) => {
   try {

@@ -18,9 +18,9 @@ router.post(
 );
 
 router.post(
-  `generate-pack`,
+  `generate-pack-of-images`,
   authMiddleware,
-  aiController.trainModel.bind(aiController)
+  aiController.generatePackOfImages.bind(aiController)
 );
 
 export default router;
