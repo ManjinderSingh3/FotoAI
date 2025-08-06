@@ -14,7 +14,7 @@ export class AIController {
       // Input Validation
       const parsedBody = TrainModel.safeParse(req.body);
       if (!parsedBody.success) {
-        res.status(400).json({
+         res.status(400).json({
           message: "Invalid input data",
           errors: parsedBody.error.errors,
         });
@@ -40,6 +40,23 @@ export class AIController {
         message: "Failed to start model training",
         error: error instanceof Error ? error.message : "Unknown error",
       });
+    }
+  }
+
+  async generateImage(req: Request, res: Response): Promise<void>{
+    try{
+
+    }catch(error){
+        console.error("")
+
+    }
+  }
+
+  async generatePackOfImages(req: Request, res: Response) : Promise<void>{
+    try{
+
+    }catch(error){
+
     }
   }
 }

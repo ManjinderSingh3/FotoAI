@@ -1,6 +1,6 @@
 import "../../imageGenerationModel/FalAIModel";
 import { FalAIModel } from "../../imageGenerationModel/FalAIModel";
-import { TrainModel } from "common/types";
+import type { TrainModelDTO } from "common/types";
 import { prismaClient } from "db";
 
 export class AIService {
@@ -10,7 +10,7 @@ export class AIService {
     this.falAIModel = new FalAIModel();
   }
 
-  async trainModel(data: TrainModel, userId: string) {
+  async trainModel(data: TrainModelDTO, userId: string) {
     // Start Training with FalAI
     try {
       const { request_id } = await this.falAIModel.trainModel(

@@ -1,5 +1,9 @@
 import express from "express";
-import { TrainModel, GenerateImage, GeneratePackImages } from "common/types";
+import {
+  TrainModel, type TrainModelDTO,
+  GenerateImage, type GenerateImageDTO,
+  GeneratePackOfImages, type GeneratePackOfImagesDTO,
+} from "common/types";
 import { prismaClient } from "db";
 import { S3Client } from "bun";
 import { FalAIModel } from "./imageGenerationModel/FalAIModel";
@@ -108,7 +112,7 @@ app.post(`/v1/ai/generate-image`, authMiddleware, async (req, res) => {
 });
 
 app.post(`/v1/ai/generate/pack`, authMiddleware, async (req, res) => {
-  const parsedBody = GeneratePackImages.safeParse(req.body);
+  const parsedBody = GeneratePackOfImages.safeParse(req.body);
 
   if (!parsedBody.success) {
     res.status(411).json({ message: "Incorrect inputs" });
