@@ -9,6 +9,7 @@ import { BACKEND_URL } from "../config";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { AIModelTrainingForm } from "./training-form";
+import TrainModelForm from "./train-model-form";
 
 export default function Train() {
   console.log("FRONTEND : Train Model start");
@@ -40,7 +41,8 @@ export default function Train() {
   };
   return (
     <div>
-      <AIModelTrainingForm onSubmit={trainModel} />
+      <TrainModelForm />
+      {/* <AIModelTrainingForm onSubmit={trainModel} /> */}
       {/*
       <div className="w-full max-w-4xl mx-auto min-h-96 border border-dashed bg-white dark:bg-black border-neutral-200 dark:border-neutral-800 rounded-lg m-5">
         <UploadFile onChange={handleFileUpload} />

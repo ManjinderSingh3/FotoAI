@@ -62,7 +62,7 @@ export function AIModelTrainingForm({ onSubmit }: AIModelTrainingFormProps) {
           whileTap={{ scale: 0.95 }}
           className="flex flex-col justify-center items-center"
         >
-          <h1 className="font-bold text-2xl">Train New Model</h1>
+          <h1 className="font-bold text-2xl">Train New Modell</h1>
           <p>Create your personalized AI avatar</p>
         </motion.div>
       </div>

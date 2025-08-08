@@ -12,9 +12,11 @@ import {
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 
 export function Navbar() {
   const { user } = useAuth();
+  const router = useRouter();
   return (
     <div className="relative z-10">
       <div className="flex items-center justify-between p-6">
@@ -27,15 +29,25 @@ export function Navbar() {
             >
               <LogoIcon className="h-8 w-8 text-black dark:text-white" />
               <span className="hidden font-bold font-mono text-xl sm:inline-block mt-1.5">
-                Foto<span className="text-black">AI</span>
+                FotoAI
               </span>
             </Link>
           </motion.div>
         </div>
         {user ? (
           <div className="flex space-x-3">
-            <Button className="dark:bg-white">Train Model</Button>
-            <Button className="dark:bg-white">Generate Images</Button>
+            <button
+              className="group/btn shadow-input relative flex h-10 w-full items-center justify-center rounded-md bg-gray-100 px-3 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
+              type="submit"
+              onClick={() => router.push("/train")}
+            >
+              <span className="text-sm text-neutral-700 dark:text-neutral-300">
+                Train Model
+              </span>
+              <BottomGradient />
+            </button>
+
+            <Button className="dark:bg-white">Generate Images1</Button>
             <Button className="dark:bg-white">Pack</Button>
             <Button className="dark:bg-white">Billing</Button>
             {/* Train Model*/}
@@ -79,3 +91,12 @@ export function Navbar() {
     </div>
   );
 }
+
+const BottomGradient = () => {
+  return (
+    <>
+      <span className="absolute inset-x-0 -bottom-px block h-px w-full bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-0 transition duration-500 group-hover/btn:opacity-100" />
+      <span className="absolute inset-x-10 -bottom-px mx-auto block h-px w-1/2 bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-0 blur-sm transition duration-500 group-hover/btn:opacity-100" />
+    </>
+  );
+};
