@@ -10,18 +10,28 @@ import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { AIModelTrainingForm } from "./training-form";
 
-
 export default function Train() {
-  const { getToken } = useAuth();
+  console.log("FRONTEND : Train Model start");
+  const { getToken, user } = useAuth();
   const [files, setFiles] = useState<File[]>([]);
 
   const trainModel = async () => {
+    console.log("FRONTEND : Inside Train Model Function");
     const token = await getToken();
-    await axios.post(`${BACKEND_URL}/v1/ai/train-model`, {
-      headers: {
-        authorization: `Bearer ${token}`,
+    console.log("USER: ", user);
+    console.log("TOKEN: ", token);
+    await axios.post(
+      `${BACKEND_URL}/v1/ai/train-model`,
+      {
+        /* Empty Request Body*/
       },
-    });
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log("FRONTEND : Train Mode ends");
   };
 
   const handleFileUpload = (files: File[]) => {
@@ -30,7 +40,7 @@ export default function Train() {
   };
   return (
     <div>
-      <AIModelTrainingForm />
+      <AIModelTrainingForm onSubmit={trainModel} />
       {/*
       <div className="w-full max-w-4xl mx-auto min-h-96 border border-dashed bg-white dark:bg-black border-neutral-200 dark:border-neutral-800 rounded-lg m-5">
         <UploadFile onChange={handleFileUpload} />

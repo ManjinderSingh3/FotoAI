@@ -12,6 +12,9 @@ export class AIService {
 
   async trainModel(data: TrainModelDTO, userId: string) {
     // Start Training with FalAI
+    console.log("Train Model Service: ");
+    console.log("Data: ", data);
+    console.log("User Id: ", userId);
     try {
       const { request_id } = await this.falAIModel.trainModel(
         data.zipUrl,

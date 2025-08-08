@@ -1,30 +1,14 @@
-import express from "express";
-import {
-  TrainModel, type TrainModelDTO,
-  GenerateImage, type GenerateImageDTO,
-  GeneratePackOfImages, type GeneratePackOfImagesDTO,
-} from "common/types";
-import { prismaClient } from "db";
-import { S3Client } from "bun";
-import { FalAIModel } from "./imageGenerationModel/FalAIModel";
-import { authMiddleware } from "./middleware";
-import cors from "cors";
+import app from "./src/app";
+import { config } from "./src/config/auth.config";
 
-const PORT = process.env.PORT || 8080;
-const app = express();
-app.use(
-  cors({
-    origin: ["http://localhost:3000"],
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["COntent-Type", "Authorization"],
-  })
-);
-app.use(express.json());
-const USER_ID = "12345";
-const falAIModel = new FalAIModel();
+const PORT = config.port;
+
+app.listen(PORT, () => {
+  console.log(`Server is running on PORT ${PORT}`);
+});
 
 // Pre-Signed URLS is the standard way of storing in S3 from browser
+/*
 app.get("/pre-signed-url", async (req, res) => {
   const fileName = `models/training-data_${Date.now()}_${crypto.randomUUID()}.zip`;
   const url = S3Client.presign(fileName, {
@@ -37,7 +21,7 @@ app.get("/pre-signed-url", async (req, res) => {
   res.json({ url, fileName });
 });
 
-/*
+
 app.post(`/v1/ai/train-model`, authMiddleware, async (req, res) => {
   try {
     console.log("Reached Training API");
@@ -71,7 +55,7 @@ app.post(`/v1/ai/train-model`, authMiddleware, async (req, res) => {
     res.status(500).json({ message: "Failure in Training API" });
   }
 });
-*/
+
 
 app.post(`/v1/ai/generate-image`, authMiddleware, async (req, res) => {
   try {
@@ -209,6 +193,4 @@ app.post("fal-ai/webhook/generate-image", async (req, res) => {
   res.json({ message: "Generate Image Webhook received" });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on PORT ${PORT}`);
-});
+*/
