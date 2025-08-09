@@ -25,40 +25,40 @@ export function HowItWorks() {
               <rect
                 width="100%"
                 height="100%"
-                stroke-width="0"
+                strokeWidth="0"
                 fill="url(#:rd:)"
               ></rect>
               <svg x="-12" y="4" className="overflow-visible">
                 <rect
-                  stroke-width="0"
+                  strokeWidth="0"
                   width="21"
                   height="21"
                   x="160"
                   y="20"
                 ></rect>
                 <rect
-                  stroke-width="0"
+                  strokeWidth="0"
                   width="21"
                   height="21"
                   x="140"
                   y="120"
                 ></rect>
                 <rect
-                  stroke-width="0"
+                  strokeWidth="0"
                   width="21"
                   height="21"
                   x="160"
                   y="120"
                 ></rect>
                 <rect
-                  stroke-width="0"
+                  strokeWidth="0"
                   width="21"
                   height="21"
                   x="160"
                   y="20"
                 ></rect>
                 <rect
-                  stroke-width="0"
+                  strokeWidth="0"
                   width="21"
                   height="21"
                   x="180"
@@ -102,40 +102,40 @@ export function HowItWorks() {
               <rect
                 width="100%"
                 height="100%"
-                stroke-width="0"
+                strokeWidth="0"
                 fill="url(#:rd:)"
               ></rect>
               <svg x="-12" y="4" className="overflow-visible">
                 <rect
-                  stroke-width="0"
+                  strokeWidth="0"
                   width="21"
                   height="21"
                   x="160"
                   y="20"
                 ></rect>
                 <rect
-                  stroke-width="0"
+                  strokeWidth="0"
                   width="21"
                   height="21"
                   x="140"
                   y="120"
                 ></rect>
                 <rect
-                  stroke-width="0"
+                  strokeWidth="0"
                   width="21"
                   height="21"
                   x="160"
                   y="120"
                 ></rect>
                 <rect
-                  stroke-width="0"
+                  strokeWidth="0"
                   width="21"
                   height="21"
                   x="160"
                   y="20"
                 ></rect>
                 <rect
-                  stroke-width="0"
+                  strokeWidth="0"
                   width="21"
                   height="21"
                   x="180"
@@ -178,40 +178,40 @@ export function HowItWorks() {
               <rect
                 width="100%"
                 height="100%"
-                stroke-width="0"
+                strokeWidth="0"
                 fill="url(#:rd:)"
               ></rect>
               <svg x="-12" y="4" className="overflow-visible">
                 <rect
-                  stroke-width="0"
+                  strokeWidth="0"
                   width="21"
                   height="21"
                   x="160"
                   y="20"
                 ></rect>
                 <rect
-                  stroke-width="0"
+                  strokeWidth="0"
                   width="21"
                   height="21"
                   x="140"
                   y="120"
                 ></rect>
                 <rect
-                  stroke-width="0"
+                  strokeWidth="0"
                   width="21"
                   height="21"
                   x="160"
                   y="120"
                 ></rect>
                 <rect
-                  stroke-width="0"
+                  strokeWidth="0"
                   width="21"
                   height="21"
                   x="160"
                   y="20"
                 ></rect>
                 <rect
-                  stroke-width="0"
+                  strokeWidth="0"
                   width="21"
                   height="21"
                   x="180"

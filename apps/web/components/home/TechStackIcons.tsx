@@ -3,7 +3,7 @@ export const TechStackIcons = () => {
     <div className="relative mt-10">
       <div className="block sm:hidden absolute h-full w-20 bg-white dark:bg-black right-0 [mask-image:linear-gradient(to_left,white,transparent)] z-40"></div>
       <div className="flex  justify-start items-center mb-4 overflow-x-auto relative z-20 no-visible-scrollbar ">
-        {/*React Icon */}
+        {/*NextJs Icon */}
         <div className="flex items-center space-x-2 mr-4">
           <span>
             <svg
@@ -13,22 +13,17 @@ export const TechStackIcons = () => {
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              className="md:h-10 md:w-10 h-4 w-4 text-neutral-500 flex-shrink-0 stroke-1"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-4 w-4 flex-shrink-0 stroke-1 text-neutral-500 md:h-10 md:w-10"
             >
-              <path d="M6.306 8.711c-2.602 .723 -4.306 1.926 -4.306 3.289c0 2.21 4.477 4 10 4c.773 0 1.526 -.035 2.248 -.102"></path>
-              <path d="M17.692 15.289c2.603 -.722 4.308 -1.926 4.308 -3.289c0 -2.21 -4.477 -4 -10 -4c-.773 0 -1.526 .035 -2.25 .102"></path>
-              <path d="M6.305 15.287c-.676 2.615 -.485 4.693 .695 5.373c1.913 1.105 5.703 -1.877 8.464 -6.66c.387 -.67 .733 -1.339 1.036 -2"></path>
-              <path d="M17.694 8.716c.677 -2.616 .487 -4.696 -.694 -5.376c-1.913 -1.105 -5.703 1.877 -8.464 6.66c-.387 .67 -.733 1.34 -1.037 2"></path>
-              <path d="M12 5.424c-1.925 -1.892 -3.82 -2.766 -5 -2.084c-1.913 1.104 -1.226 5.877 1.536 10.66c.386 .67 .793 1.304 1.212 1.896"></path>
-              <path d="M12 18.574c1.926 1.893 3.821 2.768 5 2.086c1.913 -1.104 1.226 -5.877 -1.536 -10.66c-.375 -.65 -.78 -1.283 -1.212 -1.897"></path>
-              <path d="M11.5 12.866a1 1 0 1 0 1 -1.732a1 1 0 0 0 -1 1.732z"></path>
+              <path d="M9 15v-6l7.745 10.65a9 9 0 1 1 2.255 -1.993"></path>
+              <path d="M15 12v-3"></path>
             </svg>
           </span>
           <span className="text-sm font-semibold text-neutral-500 flex-shrink-0">
-            React
+            Next.js
           </span>
         </div>
 
@@ -38,7 +33,7 @@ export const TechStackIcons = () => {
             <svg
               stroke="currentColor"
               fill="currentColor"
-              stroke-width="0"
+              strokeWidth="0"
               viewBox="0 0 24 24"
               className="md:h-10 md:w-10 h-4 w-4 text-neutral-500 flex-shrink-0 stroke-[0.5px]"
               height="1em"
@@ -63,9 +58,9 @@ export const TechStackIcons = () => {
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               className="md:h-10 md:w-10 h-4 w-4 text-neutral-500 flex-shrink-0 stroke-1"
             >
               <path d="M12 12l-8 -8v16l16 -16v16l-4 -4"></path>
@@ -74,6 +69,56 @@ export const TechStackIcons = () => {
           </span>
           <span className="text-sm font-semibold text-neutral-500 flex-shrink-0">
             Framer Motion
+          </span>
+        </div>
+
+        {/*Prisma Icon */}
+        <div className="flex items-center space-x-2 mr-4">
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-4 w-4 flex-shrink-0 stroke-1 text-neutral-500 md:h-10 md:w-10"
+            >
+              <path d="M21 16.5c0 .38-.21.71-.53.88l-7.9 4.44c-.16.12-.36.18-.57.18-.2 0-.41-.06-.57-.18l-7.9-4.44A.991.991 0 0 1 3 16.5v-9c0-.38.21-.71.53-.88l7.9-4.44c.16-.12.36-.18.57-.18.2 0 .41.06.57.18l7.9 4.44c.32.17.53.5.53.88v9Z"></path>
+              <path d="m3.27 6.96 8.73 4.89 8.73-4.89"></path>
+              <path d="M12 22.08V11.85"></path>
+            </svg>
+          </span>
+          <span className="text-sm font-semibold text-neutral-500 flex-shrink-0">
+            Prisma
+          </span>
+        </div>
+
+        {/*Node.js Icon */}
+        <div className="flex items-center space-x-2 mr-4">
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-4 w-4 flex-shrink-0 stroke-1 text-neutral-500 md:h-10 md:w-10"
+            >
+              <path d="M12 2.5L4.5 7v10l7.5 4.5L19.5 17V7L12 2.5z"></path>
+              <path d="M8.5 8.5v7L12 17.5v-7"></path>
+              <path d="M12 10.5L15.5 8.5v7"></path>
+            </svg>
+          </span>
+          <span className="text-sm font-semibold text-neutral-500 flex-shrink-0">
+            Node.js
           </span>
         </div>
       </div>
