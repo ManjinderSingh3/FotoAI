@@ -27,7 +27,7 @@ export const Footer = () => {
               >
                 <LogoIcon className="h-8 w-8 text-black dark:text-white" />
                 <span className="hidden font-bold font-mono text-xl sm:inline-block mt-1.5">
-                  Foto<span className="text-black">AI</span>
+                  FotoAI
                 </span>
               </Link>
             </motion.div>
