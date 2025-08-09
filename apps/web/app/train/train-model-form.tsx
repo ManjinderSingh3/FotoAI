@@ -1,23 +1,31 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import {
-  IconBrandGithub,
-  IconBrandGoogle,
-  IconBrandOnlyfans,
-} from "@tabler/icons-react";
 import { motion } from "framer-motion";
+import { UploadFile } from "./upload-file";
 
 export default function TrainModelForm() {
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted");
   };
+  const handleCancel = () => {
+    setUploadedFiles([]);
+    // Clear the file input value to allow re-uploading the same file
+    const fileInput = document.getElementById(
+      "file-upload-handle"
+    ) as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = "";
+    }
+    console.log("Upload cancelled, files removed");
+  };
   return (
     <div
-      className="shadow-input mx-auto w-full max-w-md rounded-none bg-white p-4 md:rounded-2xl md:p-8 dark:bg-black
+      className="shadow-input mx-auto w-full max-w-md rounded-2xl bg-white p-4  md:p-8 dark:bg-black
     shadow-[0_1px_1px_rgba(0,0,0,0.05),0_4px_6px_rgba(34,42,53,0.04),0_24px_68px_rgba(47,48,55,0.05),0_2px_3px_rgba(0,0,0,0.04)]"
     >
       <motion.div
@@ -59,7 +67,7 @@ export default function TrainModelForm() {
           <Label htmlFor="password">Password</Label>
           <Input id="password" placeholder="••••••••" type="password" />
         </LabelInputContainer>
-        <LabelInputContainer className="mb-8">
+        <LabelInputContainer className="mb-4">
           <Label htmlFor="twitterpassword">Your twitter password</Label>
           <Input
             id="twitterpassword"
@@ -68,13 +76,27 @@ export default function TrainModelForm() {
           />
         </LabelInputContainer>
 
+        <LabelInputContainer className="mb-8">
+          <Label htmlFor="training-images">Training Images</Label>
+          <div className="mx-auto w-full max-w-md bg-white p-4 rounded-2xl md:p-8 dark:bg-black shadow-[0_1px_1px_rgba(0,0,0,0.05),0_4px_6px_rgba(34,42,53,0.04),0_24px_68px_rgba(47,48,55,0.05),0_2px_3px_rgba(0,0,0,0.04)] dark:shadow-none dark:border dark:border-gray-700/50 mt-2">
+            <UploadFile
+              files={uploadedFiles}
+              onChange={(files) => {
+                setUploadedFiles(files);
+                console.log("Files uploaded:", files);
+              }}
+            />
+          </div>
+        </LabelInputContainer>
+
         <div className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
 
         <div className="flex flex-col space-y-4">
-          <div className="flex justify-center ju">
+          <div className="flex justify-center space-x-4">
             <button
               className="group/btn shadow-input relative flex h-10 w-full items-center justify-center rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
               type="submit"
+              onClick={handleCancel}
             >
               <span className="text-sm text-neutral-700 dark:text-neutral-300">
                 Cancel
