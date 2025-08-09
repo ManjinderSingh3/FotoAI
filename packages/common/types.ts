@@ -19,14 +19,20 @@ export const TrainModel = z.object({
   bald: z.boolean(),
   zipUrl: z.string(),
 });
+// DTO
+export type TrainModelDTO = z.infer<typeof TrainModel>;
 
 export const GenerateImage = z.object({
   prompt: z.string(),
   trainedModelId: z.string(),
   num: z.number(),
 });
+//DTO
+export type GenerateImageDTO = z.infer<typeof GenerateImage>;
 
-export const GeneratePackImages = z.object({
+export const GeneratePackOfImages = z.object({
   modelId: z.string(),
   packId: z.string(),
 });
+//DTO
+export type GeneratePackOfImagesDTO = z.infer<typeof GeneratePackOfImages>;
