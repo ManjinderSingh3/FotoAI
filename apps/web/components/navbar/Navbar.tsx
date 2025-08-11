@@ -18,8 +18,8 @@ export function Navbar() {
   const { user } = useAuth();
   const router = useRouter();
   return (
-    <div className="relative z-10">
-      <div className="flex items-center justify-between p-6">
+    <div className="relative z-10 container mx-auto py-5">
+      <div className="flex items-center justify-between">
         {/* Logo */}
         <div>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>

@@ -10,12 +10,12 @@ export function Hero() {
   return (
     <div>
       <BackgroundEffects />
-      <div className="relative z-10 text-center text-neutral-700 dark:text-zinc-400 mt-20">
-        <h1 className=" md:text-6xl font-bold tracking-tight max-w-6xl mx-auto leading-tight text-4xl">
+      <div className="container mx-auto relative z-10 text-center text-neutral-700 dark:text-zinc-400 lg:mt-20 mt-10">
+        <h1 className=" md:text-6xl font-bold max-w-6xl mx-auto tracking-tight leading-tight text-4xl">
           Create Stunning, Professional Quality AI-Generated Images at
           lightning-fast speed
         </h1>
-        <h2 className="mt-6 mx-auto max-w-4xl text-xl px-4">
+        <h2 className="mt-8 mx-auto max-w-4xl text-xl px-4">
           From selfies to surreal scenes, FotoAI turns your ideas into visuals
           in seconds. Easy to use, endlessly creative, and always a little bit
           magical.
