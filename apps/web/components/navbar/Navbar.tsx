@@ -18,8 +18,8 @@ export function Navbar() {
   const { user } = useAuth();
   const router = useRouter();
   return (
-    <div className="relative z-10 container mx-auto py-5">
-      <div className="flex items-center justify-between">
+    <div className="relative z-10">
+      <div className="flex flex-row  items-center justify-between py-8 max-w-[85rem] mx-auto px-8 w-full relative z-[60]">
         {/* Logo */}
         <div>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -57,9 +57,29 @@ export function Navbar() {
             {/* My Purchases*/}
           </div>
         ) : (
-          <></>
+          // Pricing
+          <div>
+            <button className="group relative rounded-full p-px text-sm/6 text-zinc-900 hover:text-zinc-400 dark:text-zinc-400 duration-300 dark:hover:text-zinc-100 border hover:shadow-[0_0_10px_rgba(56,189,248,0.6)]">
+              <div className="relative z-10 rounded-full px-4 py-1 ring-1 ring-white/10">
+                Pricing
+              </div>
+              <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-cyan-400/0 via-cyan-400/90 to-cyan-400/0 transition-opacity duration-500 group-hover:opacity-40"></span>
+            </button>
+            <button className="group relative rounded-full p-px text-sm/6 text-zinc-900 hover:text-zinc-400 dark:text-zinc-400 duration-300 dark:hover:text-zinc-100 border hover:shadow-[0_0_10px_rgba(56,189,248,0.6)]">
+              <div className="relative z-10 rounded-full px-4 py-1 ring-1 ring-white/10">
+                Pricing
+              </div>
+              <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-cyan-400/0 via-cyan-400/90 to-cyan-400/0 transition-opacity duration-500 group-hover:opacity-40"></span>
+            </button>
+            <button className="group relative rounded-full p-px text-sm/6 text-zinc-900 hover:text-zinc-400 dark:text-zinc-400 duration-300 dark:hover:text-zinc-100 border hover:shadow-[0_0_10px_rgba(56,189,248,0.6)]">
+              <div className="relative z-10 rounded-full px-4 py-1 ring-1 ring-white/10">
+                Pricing
+              </div>
+              <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-cyan-400/0 via-cyan-400/90 to-cyan-400/0 transition-opacity duration-500 group-hover:opacity-40"></span>
+            </button>
+          </div>
         )}
-        {/* Pricing and Authentication */}
+        {/* Authentication */}
         <div>
           <SignedIn>
             <div className="flex space-x-3">
@@ -70,12 +90,7 @@ export function Navbar() {
           <SignedOut>
             <div className="flex space-x-4">
               <ThemeToggle />
-              <button className="group relative rounded-full p-px text-sm/6 text-zinc-900 hover:text-zinc-400 dark:text-zinc-400 duration-300 dark:hover:text-zinc-100 border hover:shadow-[0_0_10px_rgba(56,189,248,0.6)]">
-                <div className="relative z-10 rounded-full px-4 py-1 ring-1 ring-white/10">
-                  Pricing
-                </div>
-                <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-cyan-400/0 via-cyan-400/90 to-cyan-400/0 transition-opacity duration-500 group-hover:opacity-40"></span>
-              </button>
+
               <SignInButton>
                 <button className="group relative rounded-full p-px text-sm/6 text-zinc-400 duration-300 hover:text-zinc-100 hover:shadow-[0_0_10px_rgba(56,189,248,0.6)]">
                   <div className="relative z-10 rounded-full bg-zinc-950 px-4 py-1 ring-1 ring-white/10">

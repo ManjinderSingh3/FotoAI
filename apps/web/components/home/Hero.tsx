@@ -10,7 +10,7 @@ export function Hero() {
   return (
     <div>
       <BackgroundEffects />
-      <div className="container mx-auto relative z-10 text-center text-neutral-700 dark:text-zinc-400 lg:mt-20 mt-10">
+      <div className="relative z-10 text-center text-neutral-700 dark:text-zinc-400 lg:mt-20 mt-14">
         <h1 className=" md:text-6xl font-bold max-w-6xl mx-auto tracking-tight leading-tight text-4xl">
           Create Stunning, Professional Quality AI-Generated Images at
           lightning-fast speed
