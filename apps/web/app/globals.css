@@ -120,9 +120,67 @@
   }
 }
 
-.bg-grid {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 80px 80px;
+@layer utilities {
+  /* ------------ GRID VARIABLES ------------ */
+  :root {
+    --grid-size: 80px; /* spacing between lines   */
+    --grid-alpha: 0.06; /* line strength in LIGHT  */
+    --grid-color: 17 24 39; /* slate-900 lines in LIGHT (RGB) */
+  }
+  .dark {
+    --grid-alpha: 0.06; /* line strength in DARK   */
+    --grid-color: 255 255 255; /* white lines in DARK     */
+  }
+
+  /* ------------ GRID UTILITY ------------ */
+  .bg-grid {
+    background-image:
+      linear-gradient(
+        rgb(var(--grid-color) / var(--grid-alpha)) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        rgb(var(--grid-color) / var(--grid-alpha)) 1px,
+        transparent 1px
+      );
+    background-size: var(--grid-size) var(--grid-size);
+    background-position: top left;
+  }
+
+  /* curved reverse-moon mask so the grid only appears on the upper half */
+  .mask-arc-top {
+    --arc-w: 120%; /* ellipse width */
+    --arc-h: 85%; /* ellipse height (smaller = higher cutoff) */
+    --arc-y: -10%; /* lift the ellipse center above the top */
+    --arc-hard: 58%; /* where the solid mask ends */
+    --arc-soft: 68%; /* where it fully fades out */
+
+    -webkit-mask-image: radial-gradient(
+      ellipse var(--arc-w) var(--arc-h) at 50% var(--arc-y),
+      black var(--arc-hard),
+      transparent var(--arc-soft)
+    );
+    mask-image: radial-gradient(
+      ellipse var(--arc-w) var(--arc-h) at 50% var(--arc-y),
+      black var(--arc-hard),
+      transparent var(--arc-soft)
+    );
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+  }
+
+  /* quick variants if you want to tweak the arc without editing the class */
+  .mask-arc-tighter {
+    --arc-h: 75%;
+    --arc-hard: 55%;
+    --arc-soft: 65%;
+  }
+  .mask-arc-looser {
+    --arc-h: 95%;
+    --arc-hard: 60%;
+    --arc-soft: 72%;
+  }
 }

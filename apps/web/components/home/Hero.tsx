@@ -10,8 +10,8 @@ export function Hero() {
   return (
     <div>
       <BackgroundEffects />
-      <div className="relative z-10 text-center text-neutral-700 dark:text-zinc-400 lg:mt-20 mt-14">
-        <h1 className="md:text-6xl text-4xl px-3 font-bold max-w-6xl mx-auto tracking-tight leading-tight ">
+      <div className="relative z-10 text-center text-neutral-700 dark:text-zinc-400 lg:mt-20 mt-7">
+        <h1 className="md:text-6xl text-3xl px-3 font-bold max-w-6xl mx-auto tracking-tight leading-tight ">
           Create Stunning, Professional Quality AI-Generated Images at
           lightning-fast speed
         </h1>
