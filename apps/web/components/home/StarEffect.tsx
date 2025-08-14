@@ -28,7 +28,7 @@ export function StarEffect({ count = 40 }: { count?: number }) {
         ...randomPosition(),
         size: Math.random() * 2 + 1,
         opacity: Math.random() * 0.5 + 0.3,
-        duration: 8 + Math.random() * 4, // 8-12 seconds
+        duration: 16 + Math.random() * 4, // 8-12 seconds
       }))
     );
   }, [count]);

@@ -10,13 +10,13 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { useAuth } from "@/hooks/useAuth";
+//import { useAuth } from "@/hooks/useAuth";
 import { Button } from "../ui/button";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
+import { ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
+import dynamic from "next/dynamic";
 
 export function Navbar() {
-  const { user } = useAuth();
-  const router = useRouter();
   return (
     <div className="relative z-10">
       <div className="flex flex-row  items-center justify-between py-8 max-w-[85rem] mx-auto px-8 w-full relative z-[60]">
@@ -34,73 +34,75 @@ export function Navbar() {
             </Link>
           </motion.div>
         </div>
-        {user ? (
-          <div className="flex space-x-3">
-            <button
-              className="group/btn shadow-input relative flex h-10 w-full items-center justify-center rounded-md bg-gray-100 px-3 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
-              type="submit"
-              onClick={() => router.push("/train")}
-            >
-              <span className="text-sm text-neutral-700 dark:text-neutral-300">
-                Train Model
-              </span>
-              <BottomGradient />
-            </button>
 
-            <Button className="dark:bg-white">Generate Images1</Button>
-            <Button className="dark:bg-white">Pack</Button>
-            <Button className="dark:bg-white">Billing</Button>
-            {/* Train Model*/}
-            {/* Generate Images*/}
-            {/* Generate Pack*/}
-            {/* Credits / Pricing*/}
-            {/* My Purchases*/}
-          </div>
-        ) : (
-          // Pricing
-          <div>
-            <button className="group relative rounded-full p-px text-sm/6 text-zinc-900 hover:text-zinc-400 dark:text-zinc-400 duration-300 dark:hover:text-zinc-100 border hover:shadow-[0_0_10px_rgba(56,189,248,0.6)]">
-              <div className="relative z-10 rounded-full px-4 py-1 ring-1 ring-white/10">
-                Pricing
+        {/* Center actions */}
+        <div className="min-w-[460px] flex justify-end">
+          {/* Keep width stable while Clerk hydrates */}
+          <ClerkLoading>
+            <div className="h-10 w-[460px]" />
+          </ClerkLoading>
+
+          <ClerkLoaded>
+            <SignedIn>
+              <div className="flex gap-3">
+                <Link
+                  href="/train"
+                  className="group/btn shadow-input relative flex h-10 items-center justify-center rounded-md bg-gray-100 px-3 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
+                >
+                  <span className="text-sm text-neutral-700 dark:text-neutral-300">
+                    Train Model
+                  </span>
+                  <BottomGradient />
+                </Link>
+                <Button asChild className="dark:bg-white">
+                  <Link href="/generate">Generate Images</Link>
+                </Button>
+                <Button asChild className="dark:bg-white">
+                  <Link href="/pack">Pack</Link>
+                </Button>
+                <Button asChild className="dark:bg-white">
+                  <Link href="/billing">Billing</Link>
+                </Button>
               </div>
-              <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-cyan-400/0 via-cyan-400/90 to-cyan-400/0 transition-opacity duration-500 group-hover:opacity-40"></span>
-            </button>
-            <button className="group relative rounded-full p-px text-sm/6 text-zinc-900 hover:text-zinc-400 dark:text-zinc-400 duration-300 dark:hover:text-zinc-100 border hover:shadow-[0_0_10px_rgba(56,189,248,0.6)]">
-              <div className="relative z-10 rounded-full px-4 py-1 ring-1 ring-white/10">
-                Pricing
-              </div>
-              <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-cyan-400/0 via-cyan-400/90 to-cyan-400/0 transition-opacity duration-500 group-hover:opacity-40"></span>
-            </button>
-            <button className="group relative rounded-full p-px text-sm/6 text-zinc-900 hover:text-zinc-400 dark:text-zinc-400 duration-300 dark:hover:text-zinc-100 border hover:shadow-[0_0_10px_rgba(56,189,248,0.6)]">
-              <div className="relative z-10 rounded-full px-4 py-1 ring-1 ring-white/10">
-                Pricing
-              </div>
-              <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-cyan-400/0 via-cyan-400/90 to-cyan-400/0 transition-opacity duration-500 group-hover:opacity-40"></span>
-            </button>
-          </div>
-        )}
+            </SignedIn>
+            <SignedOut>
+              {/* If you want something when signed out, put it here; otherwise leave empty */}
+              <div />
+            </SignedOut>
+          </ClerkLoaded>
+        </div>
+
         {/* Authentication */}
-        <div>
-          <SignedIn>
-            <div className="flex space-x-3">
-              <ThemeToggle />
-              <UserButton />
-            </div>
-          </SignedIn>
-          <SignedOut>
-            <div className="flex space-x-4">
-              <ThemeToggle />
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
 
-              <SignInButton>
+          {/* 1) Instant SSR fallback (always visible immediately) */}
+          <ClerkLoading>
+            <button className="group relative rounded-full p-px text-sm/6 text-zinc-400 duration-300 hover:text-zinc-100 hover:shadow-[0_0_10px_rgba(56,189,248,0.6)]">
+              <div className="relative z-10 rounded-full bg-zinc-950 px-4 py-1 ring-1 ring-white/10">
+                Sign In
+              </div>
+              <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-cyan-400/0 via-cyan-400/90 to-cyan-400/0 transition-opacity duration-500 group-hover:opacity-40" />
+            </button>
+          </ClerkLoading>
+
+          {/* 2) Real buttons once Clerk is hydrated */}
+          <ClerkLoaded>
+            <SignedOut>
+              <SignInButton mode="modal">
                 <button className="group relative rounded-full p-px text-sm/6 text-zinc-400 duration-300 hover:text-zinc-100 hover:shadow-[0_0_10px_rgba(56,189,248,0.6)]">
                   <div className="relative z-10 rounded-full bg-zinc-950 px-4 py-1 ring-1 ring-white/10">
                     Sign In
                   </div>
-                  <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-cyan-400/0 via-cyan-400/90 to-cyan-400/0 transition-opacity duration-500 group-hover:opacity-40"></span>
+                  <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-cyan-400/0 via-cyan-400/90 to-cyan-400/0 transition-opacity duration-500 group-hover:opacity-40" />
                 </button>
               </SignInButton>
-            </div>
-          </SignedOut>
+            </SignedOut>
+
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          </ClerkLoaded>
         </div>
       </div>
     </div>
