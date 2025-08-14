@@ -1,77 +1,54 @@
-/*
-import { StarEffect } from "@/components/home/StarEffect";
-
-export function BackgroundEffects() {
-  return (
-    <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
-
-      <div
-        className="absolute inset-0 w-full h-full"
-        style={{
-          background:
-            "linear-gradient(to bottom, #083344 0%, #083344 20%, #000 60%, #000 100%)",
-        }}
-      />
-
-      <div
-        className="absolute w-full bg-grid pointer-events-none"
-        style={{
-          height: "40%",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, black 60%, transparent 100%)",
-          maskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
-        }}
-      />
-
-      <StarEffect count={40} />
-    </div>
-  );
-}
-*/
 "use client";
 
-import { StarEffect } from "@/components/home/StarEffect";
+import React from "react";
 import { useTheme } from "next-themes";
+import { StarEffect } from "@/components/home/StarEffect";
 
 export function BackgroundEffects() {
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => setMounted(true), []);
 
-  // --- DARK THEME ------------------------------------------------------------
-  const varsDark =
-    "--tint:#0b1724;" + // subtle navy top tone
-    "--base1:#090e14;" + // neutral near-black
-    "--base2:#070a0d;" +
-    "--topAlpha:0.18;" + // top blue spread
-    "--vignette:0.30;"; // edge darkening
+  // Render a neutral container on SSR to avoid mismatch,
+  // actual themed layers only after mount.
+  if (!mounted) return <div className="absolute inset-0 z-0" />;
+
+  const isDark = resolvedTheme === "dark";
+
+  const darkVars = {
+    ["--tint" as any]: "#0b1724",
+    ["--base1" as any]: "#090e14",
+    ["--base2" as any]: "#070a0d",
+    ["--topAlpha" as any]: "0.18",
+    ["--vignette" as any]: "0.30",
+  } as React.CSSProperties;
+
+  const lightVars = {
+    ["--ltTopAlpha" as any]: "0.20",
+    ["--ltVignette" as any]: "0.12",
+  } as React.CSSProperties;
 
   const darkBase =
-    "bg-[linear-gradient(180deg,#0b1724_0%,#090e14_22%,#070a0d_58%,var(--background)_100%)] " +
+    "bg-[linear-gradient(180deg,var(--tint)_0%,var(--base1)_22%,var(--base2)_58%,var(--background)_100%)] " +
     "after:content-[''] after:absolute after:inset-0 " +
-    "after:bg-[radial-gradient(80%_55%_at_50%_0%,rgba(56,189,248,0.18)_0%,rgba(2,6,23,0)_70%)] " +
-    "shadow-[inset_0_0_240px_rgba(0,0,0,0.30)]";
-
-  // --- LIGHT THEME -----------------------------------------------------------
-  const lightVars = "--ltTopAlpha:0.20;" + "--ltVignette:0.12;";
+    "after:bg-[radial-gradient(80%_55%_at_50%_0%,rgba(56,189,248,var(--topAlpha))_0%,rgba(2,6,23,0)_70%)] " +
+    "shadow-[inset_0_0_240px_rgba(0,0,0,var(--vignette))]";
 
   const lightBase =
     "bg-[linear-gradient(180deg,#e9f4ff_0%,#f5faff_55%,var(--background)_100%)] " +
     "after:content-[''] after:absolute after:inset-0 " +
-    "after:bg-[radial-gradient(85%_50%_at_50%_0%,rgba(56,189,248,0.20)_0%,rgba(255,255,255,0)_65%)] " +
-    "shadow-[inset_0_0_140px_rgba(0,0,0,0.12)]";
+    "after:bg-[radial-gradient(85%_50%_at_50%_0%,rgba(56,189,248,var(--ltTopAlpha))_0%,rgba(255,255,255,0)_65%)] " +
+    "shadow-[inset_0_0_140px_rgba(0,0,0,var(--ltVignette))]";
 
   return (
     <div className="absolute inset-0 overflow-hidden z-0">
-      {/* Base gradient (no bottom blue) */}
+      {/* Base gradient */}
       <div
-        className={`absolute inset-0 ${theme === "dark" ? darkBase : lightBase}`}
-        style={
-          theme === "dark"
-            ? ({ cssText: varsDark } as any)
-            : ({ cssText: lightVars } as any)
-        }
+        className={`absolute inset-0 ${isDark ? darkBase : lightBase}`}
+        style={isDark ? darkVars : lightVars}
       />
 
-      {/* Bottom black fade UNDER stars so merge with next section is seamless */}
+      {/* Bottom fade blends to page bg; UNDER stars */}
       <div
         className="absolute inset-0 pointer-events-none z-0"
         style={{
@@ -80,13 +57,13 @@ export function BackgroundEffects() {
         }}
       />
 
-      {/* Stars (full area) */}
+      {/* Stars across the section */}
       <StarEffect count={40} />
 
-      {/* Grid on upper arc ONLY (above stars) */}
+      {/* Grid only in upper arc, on top */}
       <div
-        className={`absolute inset-0 bg-grid bg-grid-sm pointer-events-none mask-arc-top ${
-          theme === "dark" ? "opacity-85" : "opacity-90 mix-blend-multiply"
+        className={`absolute inset-0 z-10 bg-grid mask-arc-top pointer-events-none ${
+          isDark ? "opacity-35" : "opacity-40 mix-blend-multiply"
         }`}
       />
     </div>
