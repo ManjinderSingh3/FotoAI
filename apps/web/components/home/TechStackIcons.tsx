@@ -1,10 +1,9 @@
 export const TechStackIcons = () => {
   return (
     <div className="relative mt-10">
-      <div className="block sm:hidden absolute h-full w-20 bg-white dark:bg-black right-0 [mask-image:linear-gradient(to_left,white,transparent)] z-40"></div>
-      <div className="flex  justify-start items-center mb-4 overflow-x-auto relative z-20 no-visible-scrollbar ">
+      <div className="md:px-0 px-4 flex flex-wrap justify-center items-center mb-4 relative z-20 mx-auto max-w-3xl gap-4">
         {/*NextJs Icon */}
-        <div className="flex items-center space-x-2 mr-4">
+        <div className="flex items-center space-x-2">
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +27,7 @@ export const TechStackIcons = () => {
         </div>
 
         {/*Tailwind CSS Icon */}
-        <div className="flex items-center space-x-2 mr-4">
+        <div className="flex items-center space-x-2">
           <span>
             <svg
               stroke="currentColor"
@@ -49,7 +48,7 @@ export const TechStackIcons = () => {
         </div>
 
         {/*Framer Motion Icon */}
-        <div className="flex items-center space-x-2 mr-4">
+        <div className="flex items-center space-x-2">
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -73,7 +72,7 @@ export const TechStackIcons = () => {
         </div>
 
         {/*Prisma Icon */}
-        <div className="flex items-center space-x-2 mr-4">
+        <div className="flex items-center space-x-2">
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -98,7 +97,7 @@ export const TechStackIcons = () => {
         </div>
 
         {/*Node.js Icon */}
-        <div className="flex items-center space-x-2 mr-4">
+        <div className="flex items-center space-x-2">
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
