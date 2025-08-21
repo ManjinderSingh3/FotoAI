@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
-import { BACKEND_URL } from "../config";
+//import { BACKEND_URL } from "../config";
 import axios from "axios";
-import TrainModelForm from "./train-model-form";
+import TrainingForm from "./training-form";
 
 export default function Train() {
   console.log("FRONTEND : Train Model start");
@@ -17,7 +17,8 @@ export default function Train() {
     console.log("USER: ", user);
     console.log("TOKEN: ", token);
     await axios.post(
-      `${BACKEND_URL}/v1/ai/train-model`,
+      `http://localhost:8080//v1/ai/train-model`,
+      //`${BACKEND_URL}/v1/ai/train-model`,
       {
         /* Empty Request Body*/
       },
@@ -36,7 +37,7 @@ export default function Train() {
   };
   return (
     <div>
-      <TrainModelForm />
+      <TrainingForm />
     </div>
   );
 }

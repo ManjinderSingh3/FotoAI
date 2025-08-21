@@ -27,8 +27,8 @@ export function Navbar() {
               href="/"
               className="flex items-center gap-2 transition-opacity hover:opacity-90"
             >
-              <LogoIcon className="h-8 w-8 text-black dark:text-white" />
-              <span className="hidden font-bold font-mono text-xl sm:inline-block mt-1.5">
+              <LogoIcon className="h-8 w-8  dark:text-zinc-400" />
+              <span className="hidden font-bold font-mono text-xl sm:inline-block mt-1.5 text-neutral-80 dark:text-zinc-400">
                 FotoAI
               </span>
             </Link>
@@ -46,16 +46,16 @@ export function Navbar() {
             <SignedIn>
               <div className="flex gap-3">
                 <Link
-                  href="/train"
+                  href="/dashboard"
                   className="group/btn shadow-input relative flex h-10 items-center justify-center rounded-md bg-gray-100 px-3 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
                 >
                   <span className="text-sm text-neutral-700 dark:text-neutral-300">
-                    Train Model
+                    Dashboard
                   </span>
                   <BottomGradient />
                 </Link>
                 <Button asChild className="dark:bg-white">
-                  <Link href="/generate">Generate Images</Link>
+                  <Link href="/generate">My Purchases</Link>
                 </Button>
                 <Button asChild className="dark:bg-white">
                   <Link href="/pack">Pack</Link>
