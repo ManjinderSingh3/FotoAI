@@ -12,11 +12,11 @@ export default function Dashboard({ children }: { children?: React.ReactNode }) 
       <div className="pointer-events-none absolute inset-0 -z-10 glow-layer" />
 
       {/* Header */}
-      <div className="relative mx-auto max-w-6xl px-6 pt-24">
+      <div className="relative mx-auto max-w-6xl px-6 pt-24 dark:text-zinc-400">
         <h1 className="mb-2 text-6xl font-bold">
           Welcome, {user?.firstName || user?.username || "User"}
         </h1>
-        <p className="text-xl text-gray-300">No images generated yet. 
+        <p className="text-xl">No images generated yet. 
         Ready to create? Let's start building.</p>
       </div>
 

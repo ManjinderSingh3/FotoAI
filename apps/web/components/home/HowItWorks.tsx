@@ -11,8 +11,6 @@ interface StepCardProps {
 function StepCard({ icon, title, description }: StepCardProps) {
   return (
     <div className="relative bg-gradient-to-b from-neutral-900 to-neutral-900 p-6 rounded-2xl overflow-hidden max-w-xl transition-all duration-300 hover:ring-2 hover:ring-cyan-900/50 hover:shadow-[0_0_10px_rgba(56,189,248,0.6)]">
-
-
       {/* Background Grids Pattern */}
       <div className="pointer-events-none absolute left-1/2 top-0 -ml-20 -mt-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
         <div className="absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] from-zinc-900/30 to-zinc-900/30 opacity-100">
@@ -114,15 +112,19 @@ export function HowItWorks() {
   ];
 
   return (
-    <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-      {steps.map((step, index) => (
-        <StepCard
-          key={index}
-          icon={step.icon}
-          title={step.title}
-          description={step.description}
-        />
-      ))}
+    <div className="w-full px-8 sm:px-8 lg:px-12">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8">
+          {steps.map((step, index) => (
+            <StepCard
+              key={index}
+              icon={step.icon}
+              title={step.title}
+              description={step.description}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

@@ -35,42 +35,29 @@ export function Navbar() {
           </motion.div>
         </div>
 
-        {/* Center actions */}
-        <div className="min-w-[460px] flex justify-end">
-          {/* Keep width stable while Clerk hydrates */}
-          <ClerkLoading>
-            <div className="h-10 w-[460px]" />
-          </ClerkLoading>
+        {/* Center buttons - only show when signed in */}
+        <SignedIn>
+          <div className="min-w-[460px] flex justify-end">
+            {/* Keep width stable while Clerk hydrates */}
+            <ClerkLoading>
+              <div className="h-10 w-[460px]" />
+            </ClerkLoading>
 
-          <ClerkLoaded>
-            <SignedIn>
-              <div className="flex gap-3">
-                <Link
-                  href="/dashboard"
-                  className="group/btn shadow-input relative flex h-10 items-center justify-center rounded-md bg-gray-100 px-3 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
-                >
-                  <span className="text-sm text-neutral-700 dark:text-neutral-300">
-                    Dashboard
-                  </span>
-                  <BottomGradient />
-                </Link>
-                <Button asChild className="dark:bg-white">
-                  <Link href="/generate">My Purchases</Link>
-                </Button>
-                <Button asChild className="dark:bg-white">
-                  <Link href="/pack">Pack</Link>
-                </Button>
-                <Button asChild className="dark:bg-white">
-                  <Link href="/billing">Billing</Link>
-                </Button>
+            <ClerkLoaded>
+              <div className="lg:flex flex-row flex-1 hidden items-center justify-center space-x-8 lg:space-x-14 text-sm text-zinc-500 font-medium hover:text-zinc-400 transition duration-200">
+                <a href="/work">
+                  <span>Dashboard</span>
+                </a>
+                <a href="/#services">
+                  <span>My Purchases</span>
+                </a>
+                <a href="/pricing">
+                  <span>Buy Credits</span>
+                </a>
               </div>
-            </SignedIn>
-            <SignedOut>
-              {/* If you want something when signed out, put it here; otherwise leave empty */}
-              <div />
-            </SignedOut>
-          </ClerkLoaded>
-        </div>
+            </ClerkLoaded>
+          </div>
+        </SignedIn>
 
         {/* Authentication */}
         <div className="flex items-center gap-3">
