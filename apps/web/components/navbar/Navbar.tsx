@@ -44,14 +44,14 @@ export function Navbar() {
             </ClerkLoading>
 
             <ClerkLoaded>
-              <div className="lg:flex flex-row flex-1 hidden items-center justify-center space-x-8 lg:space-x-14 text-sm text-zinc-500 font-medium hover:text-zinc-400 transition duration-200">
-                <a href="/work">
+              <div className="lg:flex flex-row flex-1 hidden items-center justify-center space-x-8 lg:space-x-14 text-sm text-zinc-500 font-medium  transition duration-200">
+                <a className="hover:text-zinc-400" href="/dashboard">
                   <span>Dashboard</span>
                 </a>
-                <a href="/#services">
+                <a className="hover:text-zinc-400" href="/purchases">
                   <span>My Purchases</span>
                 </a>
-                <a href="/pricing">
+                <a className="hover:text-zinc-400" href="/pricing">
                   <span>Buy Credits</span>
                 </a>
               </div>
@@ -59,10 +59,10 @@ export function Navbar() {
           </div>
         </SignedIn>
 
+
         {/* Authentication */}
         <div className="flex items-center gap-3">
           <ThemeToggle />
-
           {/* 1) Instant SSR fallback (always visible immediately) */}
           <ClerkLoading>
             <button className="group relative rounded-full p-px text-sm/6 text-zinc-400 duration-300 hover:text-zinc-100 hover:shadow-[0_0_10px_rgba(56,189,248,0.6)]">
