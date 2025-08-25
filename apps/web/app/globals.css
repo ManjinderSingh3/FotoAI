@@ -183,4 +183,14 @@
     --arc-hard: 60%;
     --arc-soft: 72%;
   }
+
+  /* soft blue glow near the center on dashboard*/
+  .glow-layer {
+    background: radial-gradient(
+      600px 600px at 52% 35%,
+      rgba(56, 189, 248, 0.18),
+      transparent 60%
+    );
+    filter: blur(2px);
+  }
 }

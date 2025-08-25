@@ -27,55 +27,42 @@ export function Navbar() {
               href="/"
               className="flex items-center gap-2 transition-opacity hover:opacity-90"
             >
-              <LogoIcon className="h-8 w-8 text-black dark:text-white" />
-              <span className="hidden font-bold font-mono text-xl sm:inline-block mt-1.5">
+              <LogoIcon className="h-8 w-8  dark:text-zinc-400" />
+              <span className="hidden font-bold font-mono text-xl sm:inline-block mt-1.5 text-neutral-80 dark:text-zinc-400">
                 FotoAI
               </span>
             </Link>
           </motion.div>
         </div>
 
-        {/* Center actions */}
-        <div className="min-w-[460px] flex justify-end">
-          {/* Keep width stable while Clerk hydrates */}
-          <ClerkLoading>
-            <div className="h-10 w-[460px]" />
-          </ClerkLoading>
+        {/* Center buttons - only show when signed in */}
+        <SignedIn>
+          <div className="min-w-[460px] flex justify-end">
+            {/* Keep width stable while Clerk hydrates */}
+            <ClerkLoading>
+              <div className="h-10 w-[460px]" />
+            </ClerkLoading>
 
-          <ClerkLoaded>
-            <SignedIn>
-              <div className="flex gap-3">
-                <Link
-                  href="/train"
-                  className="group/btn shadow-input relative flex h-10 items-center justify-center rounded-md bg-gray-100 px-3 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
-                >
-                  <span className="text-sm text-neutral-700 dark:text-neutral-300">
-                    Train Model
-                  </span>
-                  <BottomGradient />
-                </Link>
-                <Button asChild className="dark:bg-white">
-                  <Link href="/generate">Generate Images</Link>
-                </Button>
-                <Button asChild className="dark:bg-white">
-                  <Link href="/pack">Pack</Link>
-                </Button>
-                <Button asChild className="dark:bg-white">
-                  <Link href="/billing">Billing</Link>
-                </Button>
+            <ClerkLoaded>
+              <div className="lg:flex flex-row flex-1 hidden items-center justify-center space-x-8 lg:space-x-14 text-sm text-zinc-500 font-medium  transition duration-200">
+                <a className="hover:text-zinc-400" href="/dashboard">
+                  <span>Dashboard</span>
+                </a>
+                <a className="hover:text-zinc-400" href="/purchases">
+                  <span>My Purchases</span>
+                </a>
+                <a className="hover:text-zinc-400" href="/pricing">
+                  <span>Buy Credits</span>
+                </a>
               </div>
-            </SignedIn>
-            <SignedOut>
-              {/* If you want something when signed out, put it here; otherwise leave empty */}
-              <div />
-            </SignedOut>
-          </ClerkLoaded>
-        </div>
+            </ClerkLoaded>
+          </div>
+        </SignedIn>
+
 
         {/* Authentication */}
         <div className="flex items-center gap-3">
           <ThemeToggle />
-
           {/* 1) Instant SSR fallback (always visible immediately) */}
           <ClerkLoading>
             <button className="group relative rounded-full p-px text-sm/6 text-zinc-400 duration-300 hover:text-zinc-100 hover:shadow-[0_0_10px_rgba(56,189,248,0.6)]">

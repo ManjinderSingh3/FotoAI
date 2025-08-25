@@ -26,7 +26,7 @@ export function Hero() {
       </div>
 
       <div className="flex justify-between m-12">
-        <button className="group relative rounded-full p-px text-lg text-zinc-300 duration-300 hover:text-zinc-100 hover:shadow-[0_0_10px_rgba(56,189,248,0.6)] mx-auto ">
+        <button className="group relative rounded-full p-px text-lg text-zinc-400 duration-300 hover:text-zinc-300 hover:shadow-[0_0_10px_rgba(56,189,248,0.6)] mx-auto ">
           <div className="relative z-10 rounded-full bg-zinc-950 px-5 py-4 ring-2 ring-white/10">
             Start Creating Images
           </div>

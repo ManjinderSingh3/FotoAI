@@ -63,7 +63,7 @@ export function BackgroundEffects() {
       {/* Grid only in upper arc, on top */}
       <div
         className={`absolute inset-0 z-10 bg-grid mask-arc-top pointer-events-none ${
-          isDark ? "opacity-35" : "opacity-40 mix-blend-multiply"
+          isDark ? "opacity-65" : "opacity-45 mix-blend-multiply"
         }`}
       />
     </div>
