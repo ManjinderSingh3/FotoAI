@@ -45,4 +45,16 @@ export class AIService {
       throw error;
     }
   }
+
+  async getTrainingStatus(trainModelId: string, userId: string) {
+    const model = await prismaClient.trainModel.findFirst({
+      where: { id: trainModelId, userId },
+      select: { trainingStatus: true, tensorPath: true },
+    });
+    if (!model) return null;
+    return {
+      status: model.trainingStatus,
+      tensorPath: model.tensorPath ?? undefined,
+    };
+  }
 }

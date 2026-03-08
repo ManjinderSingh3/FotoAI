@@ -15,7 +15,15 @@ import { motion } from "framer-motion";
 import { UploadFile } from "./upload-file";
 import { TrainModelDTO } from "../../../../packages/common/types";
 
-export default function TrainModelForm() {
+type TrainModelFormProps = {
+  onTrainSubmit?: (data: TrainModelDTO) => Promise<string | null>;
+  onTrainSuccess?: (trainModelId: string) => void;
+};
+
+export default function TrainModelForm({
+  onTrainSubmit,
+  onTrainSuccess,
+}: TrainModelFormProps) {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [modelData, setModelData] = useState<TrainModelDTO>({
     name: "",
@@ -27,9 +35,18 @@ export default function TrainModelForm() {
     zipUrl: "",
   });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted", modelData);
+    if (onTrainSubmit) {
+      try {
+        const id = await onTrainSubmit(modelData);
+        if (id) onTrainSuccess?.(id);
+      } catch (err) {
+        console.error("Train submit failed", err);
+      }
+    } else {
+      console.log("Form submitted", modelData);
+    }
   };
 
   const handleCancel = () => {
@@ -216,7 +233,7 @@ export default function TrainModelForm() {
               <div className="flex justify-center space-x-4">
                 <button
                   className="group/btn shadow-input relative flex h-10 w-full items-center justify-center rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
-                  type="submit"
+                  type="button"
                   onClick={handleCancel}
                 >
                   <span className="text-sm text-neutral-700 dark:text-neutral-300">
