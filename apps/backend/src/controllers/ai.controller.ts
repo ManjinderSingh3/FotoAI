@@ -57,6 +57,32 @@ export class AIController {
     }
   }
 
+  async getTrainingStatus(req: Request, res: Response): Promise<void> {
+    try {
+      const trainModelId = req.params.trainModelId;
+      const userId = req.userId;
+      if (!trainModelId || !userId) {
+        res.status(400).json({ message: "Missing trainModelId or user" });
+        return;
+      }
+      const status = await this.aiService.getTrainingStatus(
+        trainModelId,
+        userId
+      );
+      if (!status) {
+        res.status(404).json({ message: "Training job not found" });
+        return;
+      }
+      res.status(200).json(status);
+    } catch (error) {
+      console.error("Error in getTrainingStatus:", error);
+      res.status(500).json({
+        message: "Failed to get training status",
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
+    }
+  }
+
   async generatePackOfImages(req: Request, res: Response): Promise<void> {
     try {
     } catch (error) {}
