@@ -6,5 +6,5 @@ An AI Photographer to handle all your photo needs, eliminating the need for a ca
 
 
 ## Tech Stack
-- Backend : NodeJs
+- Backend : Java, Springboot, NodeJs
 - Frontend : Next.js, Typescript, TailwindCSS, ShadCN
