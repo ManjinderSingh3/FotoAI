@@ -1,10 +1,10 @@
-package com.fotoai.backend_spring;
+package com.fotoai.auth;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BackendSpringApplicationTests {
+class AuthApplicationTests {
 
 	@Test
 	void contextLoads() {
